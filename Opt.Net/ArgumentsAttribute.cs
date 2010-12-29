@@ -13,7 +13,7 @@ namespace Opt
     /// attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public class ArgumentsAttribute : BasePropertyAttribute
+    public sealed class ArgumentsAttribute : BasePropertyAttribute
     {
         /// <summary>
         /// When implemented in a descendant class, will validate the usage of the attribute
