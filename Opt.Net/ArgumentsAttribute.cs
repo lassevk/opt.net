@@ -49,25 +49,25 @@ namespace Opt
         /// When implemented in a descendant class, will validate the usage of the attribute
         /// on the property in a container.
         /// </summary>
-        /// <param name="property">
+        /// <param name="propertyInfo">
         /// The <see cref="PropertyInfo"/> of the property to validate against.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// <para><paramref name="property"/> is <c>null</c>.</para>
+        /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
-        public override void ValidateUsage(PropertyInfo property)
+        public override void ValidateUsage(PropertyInfo propertyInfo)
         {
-            if (property == null)
-                throw new ArgumentNullException("property");
+            if (propertyInfo == null)
+                throw new ArgumentNullException("propertyInfo");
 
-            if (!property.IsDefined(typeof (ArgumentsAttribute), true))
+            if (!propertyInfo.IsDefined(typeof (ArgumentsAttribute), true))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
                     "The ArgumentsAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}",
-                    property));
-            if (property.PropertyType != typeof (Collection<string>))
+                    propertyInfo));
+            if (propertyInfo.PropertyType != typeof (Collection<string>))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
                     "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}",
-                    property.PropertyType));
+                    propertyInfo.PropertyType));
         }
     }
 }
