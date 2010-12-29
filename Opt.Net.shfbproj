@@ -25,8 +25,8 @@
       <DocumentationSource sourceFile="Opt.Net.sln" />
     </DocumentationSources>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="DiffLib" isDocumented="True" xmlns="">The main namespace of the DiffLib project, contains all user-accessible types.</NamespaceSummaryItem>
-    </NamespaceSummaries>
+      <NamespaceSummaryItem name="Opt" isDocumented="True">This is the main namespace for the Opt.Net class library, contains most of the types relevant to use.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="Opt.Tests" isDocumented="False" /></NamespaceSummaries>
     <HelpTitle>Opt.Net</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <HelpFileFormat>Website</HelpFileFormat>
