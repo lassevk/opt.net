@@ -6,7 +6,7 @@ namespace Opt
     /// <summary>
     /// This class implements the core argument parser.
     /// </summary>
-    public class OptParser
+    public static class OptParser
     {
         /// <summary>
         /// Parse the given arguments, and convert them into property values on a new object of
