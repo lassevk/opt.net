@@ -61,6 +61,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentsAttributeTests.cs" />
+    <Compile Include="ContainerWithNoProperties.cs" />
     <Compile Include="OptParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

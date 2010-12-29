@@ -20,7 +20,7 @@ namespace Opt.Tests
         public void ParseGeneric_WithEmptyArguments_ReturnsObjectOfRightType()
         {
             IEnumerable<string> arguments = Enumerable.Empty<string>();
-            
+
             var container = OptParser.Parse<OptParserTests>(arguments);
 
             Assert.That(container, Is.Not.Null);
