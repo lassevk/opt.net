@@ -19,7 +19,9 @@ namespace Opt.Tests
         [Test]
         public void ParseGeneric_WithEmptyArguments_ReturnsObjectOfRightType()
         {
-            var container = OptParser.Parse<OptParserTests>(Enumerable.Empty<string>());
+            IEnumerable<string> arguments = Enumerable.Empty<string>();
+            
+            var container = OptParser.Parse<OptParserTests>(arguments);
 
             Assert.That(container, Is.Not.Null);
             Assert.That(container, Is.InstanceOf(typeof (OptParserTests)));
