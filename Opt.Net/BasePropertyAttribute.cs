@@ -26,12 +26,12 @@ namespace Opt
         /// When implemented in a descendant class, will validate the usage of the attribute
         /// on the property in a container.
         /// </summary>
-        /// <param name="property">
+        /// <param name="propertyInfo">
         /// The <see cref="PropertyInfo"/> of the property to validate against.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// <para><paramref name="property"/> is <c>null</c>.</para>
+        /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
-        public abstract void ValidateUsage(PropertyInfo property);
+        public abstract void ValidateUsage(PropertyInfo propertyInfo);
     }
 }
