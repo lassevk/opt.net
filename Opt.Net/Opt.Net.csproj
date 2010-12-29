@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentsAttribute.cs" />
+    <Compile Include="ArgumentsCollection.cs" />
     <Compile Include="BasePropertyAttribute.cs" />
     <Compile Include="OptParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
