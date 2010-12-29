@@ -8,7 +8,7 @@
     <ProjectGuid>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Opt.Net</RootNamespace>
+    <RootNamespace>Opt</RootNamespace>
     <AssemblyName>Opt.Net</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
