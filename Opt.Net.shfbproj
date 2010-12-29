@@ -26,7 +26,8 @@
     </DocumentationSources>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Opt" isDocumented="True">This is the main namespace for the Opt.Net class library, contains most of the types relevant to use.</NamespaceSummaryItem>
-<NamespaceSummaryItem name="Opt.Tests" isDocumented="False" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="Opt.Tests" isDocumented="False" />
+    </NamespaceSummaries>
     <HelpTitle>Opt.Net</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <HelpFileFormat>Website</HelpFileFormat>
@@ -41,6 +42,7 @@
     </SandcastlePath>
     <WorkingPath>
     </WorkingPath>
+    <Preliminary>True</Preliminary>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional
