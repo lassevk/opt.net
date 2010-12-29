@@ -8,7 +8,7 @@
     <ProjectGuid>{76A746A0-7457-47EE-B747-8E4B2EAE6D97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Opt.Net.Tests</RootNamespace>
+    <RootNamespace>Opt.Tests</RootNamespace>
     <AssemblyName>Opt.Net.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
