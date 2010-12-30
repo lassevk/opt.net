@@ -65,13 +65,14 @@ namespace Opt
                         _ArgumentsProperty = property;
                         //else if (attr == typeof(ArgumentAttribute))
                         //    argumentProperties.Add(property);
-                    else if (attr is BaseOptionAttribute)
+                    else
                     {
                         var option = attr as BaseOptionAttribute;
-                        _Properties.Add(option.Option, new KeyValuePair<PropertyInfo, BaseOptionAttribute>(property, option));
+                        if (option != null)
+                            _Properties.Add(option.Option, new KeyValuePair<PropertyInfo, BaseOptionAttribute>(property, option));
+                        else
+                            throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Internal error, unknown type of property attribute discovered, type {0}", attr.GetType()));
                     }
-                    else
-                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "Internal error, unknown type of property attribute discovered, type {0}", attr.GetType()));
                 }
             }
         }
