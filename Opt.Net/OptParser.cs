@@ -79,12 +79,16 @@ namespace Opt
         /// <para>- or -</para>
         /// <para><paramref name="arguments"/> is <c>null</c>.</para>
         /// </exception>
-        public static void Parse(object container, IEnumerable<string> arguments)
+        public static string[] Parse(object container, IEnumerable<string> arguments)
         {
             if (container == null)
                 throw new ArgumentNullException("container");
             if (arguments == null)
                 throw new ArgumentNullException("arguments");
+
+            var map = new PropertyMap(container.GetType());
+            string[] leftovers = map.Map(arguments, container);
+            return leftovers;
         }
     }
 }
