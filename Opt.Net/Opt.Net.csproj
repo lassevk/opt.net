@@ -59,6 +59,8 @@
     <Compile Include="ArgumentsAttribute.cs" />
     <Compile Include="ArgumentsCollection.cs" />
     <Compile Include="BasePropertyAttribute.cs" />
+    <Compile Include="BooleanOptionAttribute.cs" />
+    <Compile Include="BaseOptionAttribute.cs" />
     <Compile Include="OptParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMap.cs" />

@@ -68,9 +68,7 @@ namespace Opt.Tests
         }
 
         [Test]
-        public void
-            ValidateUsageWithContainerType_ContainerTypeWithNoPropertyWithArgumentsAttribute_ThrowsInvalidOperationException
-            ()
+        public void ValidateUsageWithContainerType_ContainerTypeWithNoPropertyWithArgumentsAttribute_ThrowsInvalidOperationException()
         {
             Type containerType = typeof (ContainerWithNoProperties);
             var attr = new ArgumentsAttribute();
@@ -88,9 +86,7 @@ namespace Opt.Tests
         }
 
         [Test]
-        public void
-            ValidateUsageWithContainerType_ContainerTypeWithTwoPropertiesWithArgumentsAttribute_ThrowsInvalidOperationException
-            ()
+        public void ValidateUsageWithContainerType_ContainerTypeWithTwoPropertiesWithArgumentsAttribute_ThrowsInvalidOperationException()
         {
             Type containerType = typeof (ContainerWithTwoArgumentsAttributeProperties);
             var attr = new ArgumentsAttribute();
@@ -99,27 +95,7 @@ namespace Opt.Tests
         }
 
         [Test]
-        public void ValidateUsageWithContainerType_NullType_ThrowsArgumentNullException()
-        {
-            Type containerType = null;
-            var attr = new ArgumentsAttribute();
-
-            Assert.Throws<ArgumentNullException>(() => attr.ValidateUsage(containerType));
-        }
-
-        [Test]
-        public void ValidateUsageWithPropertyInfo_NullProperty_ThrowsArgumentNullException()
-        {
-            PropertyInfo property = null;
-            var attr = new ArgumentsAttribute();
-
-            Assert.Throws<ArgumentNullException>(() => attr.ValidateUsage(property));
-        }
-
-        [Test]
-        public void
-            ValidateUsageWithPropertyInfo_PropertyWithArgumentsAttributeButCollectionWithIncorrectElementType_ThrowsInvalidOperationException
-            ()
+        public void ValidateUsageWithPropertyInfo_PropertyWithArgumentsAttributeButCollectionWithIncorrectElementType_ThrowsInvalidOperationException()
         {
             PropertyInfo property = typeof (ContainerWithInt32CollectionArgumentsProperty).GetProperty("Arguments");
             var attr = new ArgumentsAttribute();
@@ -128,9 +104,7 @@ namespace Opt.Tests
         }
 
         [Test]
-        public void
-            ValidateUsageWithPropertyInfo_PropertyWithArgumentsAttributeButNotACollection_ThrowsInvalidOperationException
-            ()
+        public void ValidateUsageWithPropertyInfo_PropertyWithArgumentsAttributeButNotACollection_ThrowsInvalidOperationException()
         {
             PropertyInfo property = typeof (ContainerWithNonCollectionArgumentsProperty).GetProperty("Arguments");
             var attr = new ArgumentsAttribute();

@@ -61,12 +61,19 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArgumentPropertyTests.cs" />
     <Compile Include="ArgumentsAttributeTests.cs" />
     <Compile Include="ArgumentsCollectionTests.cs" />
+    <Compile Include="ArgumentsPropertyTests.cs" />
+    <Compile Include="BasePropertyAttributeTests.cs" />
+    <Compile Include="BooleanPropertyTests.cs" />
     <Compile Include="ContainerWithNoProperties.cs" />
+    <Compile Include="DateTimePropertyTests.cs" />
+    <Compile Include="IntegerPropertyTests.cs" />
     <Compile Include="OptParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMapTests.cs" />
+    <Compile Include="StringPropertyTests.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>

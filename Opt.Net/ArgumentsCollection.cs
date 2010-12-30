@@ -71,8 +71,7 @@ namespace Opt
 
             fileName = Path.GetFullPath(fileName);
             if (_ProcessedResponseFiles.Contains(fileName))
-                throw new InvalidOperationException(
-                    string.Format("Response file '{0}' has been processed more than once, this is not allowed", fileName));
+                throw new InvalidOperationException(string.Format("Response file '{0}' has been processed more than once, this is not allowed", fileName));
 
             _ProcessedResponseFiles.Add(fileName);
             using (var reader = new StreamReader(fileName))
