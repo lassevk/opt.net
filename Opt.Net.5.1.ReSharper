@@ -107,4 +107,28 @@
       <Abbreviation Text="XHTML" />
     </Naming2>
   </CodeStyleSettings>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates>
+      <Template uid="b9a2102c-d5a7-461c-b9d6-06fdde0694c5" shortcut="nex" description="Throw ArgumentNullException if parameter is null." text="if ($param$ == null)&#xD;&#xA;    throw new ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="Statement" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="param" expression="parameterOfType(&quot;System.Object&quot;)" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+      <Template uid="5a5aeddf-0872-413c-b1e1-e8fc49bb495a" shortcut="nsex" description="Throw ArgumentNullException if string parameter is null, empty, or contains only whitespace." text="if (StringEx.IsNullOrWhiteSpace($param$))&#xD;&#xA;    throw new ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="param" expression="parameterOfType(&quot;System.String&quot;)" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+    </LiveTemplates>
+  </SharedSolutionTemplateManager>
 </Configuration>
