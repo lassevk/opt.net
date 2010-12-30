@@ -35,14 +35,10 @@ namespace Opt
                                                select property).Count();
 
             if (propertiesWithThisAttribute == 0)
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "The ArgumentsAttribute attribute is validated against a different container type than originally passed in; this is an internal error (aka bug), type validated against was {0}",
-                    containerType));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is validated against a different container type than originally passed in; this is an internal error (aka bug), type validated against was {0}", containerType));
 
             if (propertiesWithThisAttribute > 1)
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "The ArgumentsAttribute attribute is applied to more than one property in the type {0}",
-                    containerType));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is applied to more than one property in the type {0}", containerType));
         }
 
         /// <summary>
@@ -61,13 +57,9 @@ namespace Opt
                 throw new ArgumentNullException("propertyInfo");
 
             if (!propertyInfo.IsDefined(typeof (ArgumentsAttribute), true))
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "The ArgumentsAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}",
-                    propertyInfo));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}", propertyInfo));
             if (propertyInfo.PropertyType != typeof (Collection<string>))
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}",
-                    propertyInfo.PropertyType));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}", propertyInfo.PropertyType));
         }
     }
 }
