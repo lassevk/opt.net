@@ -69,6 +69,7 @@
     <Compile Include="BooleanPropertyTests.cs" />
     <Compile Include="ContainerWithNoProperties.cs" />
     <Compile Include="DateTimePropertyTests.cs" />
+    <Compile Include="FloatingPointPropertyTests.cs" />
     <Compile Include="IntegerPropertyTests.cs" />
     <Compile Include="OptParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
