@@ -141,10 +141,10 @@ namespace Opt
                         entry.Value.AssignValueToProperty(container, entry.Key, value);
                     }
                     else
-                        throw new InvalidOperationException("Unknown option " + argument);
+                        throw new UnknownOptionException(string.Format(CultureInfo.InvariantCulture, "Unknown option {0}", argument));
                 }
                 else if (argument.StartsWith("-", StringComparison.Ordinal))
-                    throw new InvalidOperationException("Argument starts with 3 minus signs, this is not legal");
+                    throw new OptionSyntaxException("Argument starts with three or more minus signs, this is not legal");
                 else
                     leftovers.Add(argument);
             }
