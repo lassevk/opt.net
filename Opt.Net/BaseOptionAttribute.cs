@@ -10,6 +10,7 @@ namespace Opt
     public abstract class BaseOptionAttribute : BasePropertyAttribute
     {
         private readonly string _Option;
+        private readonly string _ParameterName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseOptionAttribute"/> class.
@@ -27,6 +28,33 @@ namespace Opt
         /// <para><paramref name="option"/> is <c>null</c> or empty.</para>
         /// </exception>
         protected BaseOptionAttribute(string option)
+            : this(option, string.Empty)
+        {
+            // Do nothing here
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseOptionAttribute"/> class.
+        /// </summary>
+        /// <param name="option">
+        /// The option this <see cref="BaseOptionAttribute"/> will handle. Must be prefixed with either two minus signs (for long
+        /// options), or one minus sign (for short options.)
+        /// </param>
+        /// <param name="parameterName">
+        /// The name of the parameter, this is mostly used for help texts. This should be <see cref="String.Empty"/>
+        /// if no parameter is used.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        /// <para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="option"/> is <c>null</c> or empty.</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="parameterName"/> is <c>null</c>.</para>
+        /// </exception>
+        protected BaseOptionAttribute(string option, string parameterName)
         {
             if (StringEx.IsNullOrWhiteSpace(option))
                 throw new ArgumentNullException("option");
@@ -38,16 +66,28 @@ namespace Opt
                 throw new ArgumentException("Short options, starting with -, must be only 1 character long");
 
             _Option = option;
+            _ParameterName = parameterName;
         }
 
         /// <summary>
-        /// The option this <see cref="BaseOptionAttribute"/> handles.
+        /// Gets the option this <see cref="BaseOptionAttribute"/> handles.
         /// </summary>
         public string Option
         {
             get
             {
                 return _Option;
+            }
+        }
+
+        /// <summary>
+        /// Gets the name of the parameter to the option, mostly used for help texts and error messages.
+        /// </summary>
+        public string ParameterName
+        {
+            get
+            {
+                return _ParameterName;
             }
         }
 
