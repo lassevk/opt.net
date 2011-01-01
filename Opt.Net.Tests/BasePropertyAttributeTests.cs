@@ -11,8 +11,8 @@ namespace Opt.Tests
     {
         internal class OptionAttribute : BaseOptionAttribute
         {
-            public OptionAttribute(string option)
-                : base(option)
+            public OptionAttribute(string option, string parameterName)
+                : base(option, parameterName)
             {
             }
 
@@ -70,7 +70,7 @@ namespace Opt.Tests
         [TestCase(" \t\n\r")]
         public void Constructor_NullOrEmptyOption_ThrowsArgumentNullException(string input)
         {
-            Assert.Throws<ArgumentNullException>(() => new OptionAttribute(input));
+            Assert.Throws<ArgumentNullException>(() => new OptionAttribute(input, string.Empty));
         }
 
         [TestCase("--l")]
@@ -78,7 +78,32 @@ namespace Opt.Tests
         [TestCase("long")]
         public void Constructor_IncorrectOptions_ThrowsArgumentException(string input)
         {
-            Assert.Throws<ArgumentException>(() => new OptionAttribute(input));
+            Assert.Throws<ArgumentException>(() => new OptionAttribute(input, string.Empty));
+        }
+
+        [TestCase("-s")]
+        [TestCase("--long")]
+        public void OptionProperty_AfterConstructorWithProperOptionAndParameterNames_ContainsSpecifiedOption(string input)
+        {
+            var attr = new OptionAttribute(input, string.Empty);
+
+            Assert.That(attr.Option, Is.EqualTo(input));
+        }
+
+        [TestCase("VALUE")]
+        [TestCase("NAME")]
+        [TestCase("")]
+        public void ParameterNameProperty_AfterConstructorWithProperOptionAndParameterNames_ContainsSpecifiedOption(string input)
+        {
+            var attr = new OptionAttribute("-t", input);
+
+            Assert.That(attr.ParameterName, Is.EqualTo(input));
+        }
+
+        [Test]
+        public void Constructor_NullOrEmptyOption_ThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => new OptionAttribute("-t", null));
         }
     }
 }

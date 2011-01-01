@@ -64,6 +64,8 @@ namespace Opt
                 throw new ArgumentException("Long options, starting with --, must be at least 2 characters long");
             if (option.StartsWith("-", StringComparison.Ordinal) && !option.StartsWith("--", StringComparison.Ordinal) && option.Length != 2)
                 throw new ArgumentException("Short options, starting with -, must be only 1 character long");
+            if (parameterName == null)
+                throw new ArgumentNullException("parameterName");
 
             _Option = option;
             _ParameterName = parameterName;
