@@ -10,7 +10,7 @@ namespace Opt
     /// integer-type properties in order to specify how to map command line arguments to that property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
-    public class IntegerOptionAttribute : BaseOptionAttribute
+    public sealed class IntegerOptionAttribute : BaseOptionAttribute
     {
         private readonly Type[] _SupportedTypes = new[] { typeof (byte), typeof (byte?), typeof (sbyte), typeof (sbyte?), typeof (short), typeof (short?), typeof (ushort), typeof (ushort?), typeof (int), typeof (int?), typeof (uint), typeof (uint?), typeof (long), typeof (long?), typeof (ulong), typeof (ulong?), };
 
