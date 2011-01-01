@@ -67,6 +67,7 @@
     <Compile Include="ArgumentsPropertyTests.cs" />
     <Compile Include="BasePropertyAttributeTests.cs" />
     <Compile Include="BooleanPropertyTests.cs" />
+    <Compile Include="ConsoleLineWriterTests.cs" />
     <Compile Include="ContainerWithNoProperties.cs" />
     <Compile Include="DateTimePropertyTests.cs" />
     <Compile Include="FloatingPointPropertyTests.cs" />
