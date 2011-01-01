@@ -5,9 +5,15 @@ namespace Opt.Tests
     [TestFixture]
     public class IntegerPropertyTests
     {
-        [Ignore]
-        public void Ignored()
+        public class Container
         {
+            [IntegerOption("--int32", "VALUE")]
+            [IntegerOption("-i", "VALUE")]
+            public int Int32Property
+            {
+                get;
+                set;
+            }
         }
     }
 }

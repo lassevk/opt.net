@@ -61,6 +61,9 @@
     <Compile Include="BasePropertyAttribute.cs" />
     <Compile Include="BooleanOptionAttribute.cs" />
     <Compile Include="BaseOptionAttribute.cs" />
+    <Compile Include="ConsoleLineWriter.cs" />
+    <Compile Include="ILineWriter.cs" />
+    <Compile Include="IntegerOptionAttribute.cs" />
     <Compile Include="OptionException.cs" />
     <Compile Include="OptionSyntaxException.cs" />
     <Compile Include="OptParser.cs" />
