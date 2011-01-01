@@ -100,7 +100,7 @@ namespace Opt.Tests
         [TestCase("F")]
         [TestCase("L")]
         [TestCase("X")]
-        public void AssignValueToProperty_UnknownValues_AssignsTrueToProperty(string input)
+        public void AssignValueToProperty_UnknownValues_ThrowsInvalidOperationException(string input)
         {
             var attr = new BooleanOptionAttribute("-t");
             var container = new Container();
