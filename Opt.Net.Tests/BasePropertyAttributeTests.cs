@@ -33,8 +33,8 @@ namespace Opt.Tests
         {
             get
             {
-                return from type in typeof (BasePropertyAttribute).Assembly.GetTypes()
-                       where !type.IsAbstract && typeof (BasePropertyAttribute).IsAssignableFrom(type)
+                return from type in typeof(BasePropertyAttribute).Assembly.GetTypes()
+                       where !type.IsAbstract && typeof(BasePropertyAttribute).IsAssignableFrom(type)
                        select type;
             }
         }
@@ -43,7 +43,7 @@ namespace Opt.Tests
         public void ValidateUsageWithTypeOnAllPropertyAttributes_WithNullType_ThrowsArgumentNullException(Type attributeType)
         {
             BasePropertyAttribute attribute;
-            if (typeof (BaseOptionAttribute).IsAssignableFrom(attributeType))
+            if (typeof(BaseOptionAttribute).IsAssignableFrom(attributeType))
                 attribute = Activator.CreateInstance(attributeType, "-t") as BasePropertyAttribute;
             else
                 attribute = Activator.CreateInstance(attributeType) as BasePropertyAttribute;
@@ -56,7 +56,7 @@ namespace Opt.Tests
         public void ValidateUsageWithPropertyInfoOnAllPropertyAttributes_WithNullPropertyInfo_ThrowsArgumentNullException(Type attributeType)
         {
             BasePropertyAttribute attribute;
-            if (typeof (BaseOptionAttribute).IsAssignableFrom(attributeType))
+            if (typeof(BaseOptionAttribute).IsAssignableFrom(attributeType))
                 attribute = Activator.CreateInstance(attributeType, "-t") as BasePropertyAttribute;
             else
                 attribute = Activator.CreateInstance(attributeType) as BasePropertyAttribute;

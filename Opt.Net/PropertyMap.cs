@@ -52,16 +52,16 @@ namespace Opt
             //List<Tuple<PropertyInfo, ArgumentAttribute>> argumentProperties = new List<Tuple<PropertyInfo, ArgumentAttribute>>();
             foreach (PropertyInfo property in _ContainerType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
-                if (!property.IsDefined(typeof (BasePropertyAttribute), true))
+                if (!property.IsDefined(typeof(BasePropertyAttribute), true))
                     continue;
 
-                BasePropertyAttribute[] attributes = property.GetCustomAttributes(typeof (BasePropertyAttribute), true).Cast<BasePropertyAttribute>().ToArray();
+                BasePropertyAttribute[] attributes = property.GetCustomAttributes(typeof(BasePropertyAttribute), true).Cast<BasePropertyAttribute>().ToArray();
                 foreach (BasePropertyAttribute attr in attributes)
                 {
                     attr.ValidateUsage(_ContainerType);
                     attr.ValidateUsage(property);
 
-                    if (attr.GetType() == typeof (ArgumentsAttribute))
+                    if (attr.GetType() == typeof(ArgumentsAttribute))
                         _ArgumentsProperty = property;
                         //else if (attr == typeof(ArgumentAttribute))
                         //    argumentProperties.Add(property);

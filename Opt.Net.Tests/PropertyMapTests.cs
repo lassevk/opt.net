@@ -57,7 +57,7 @@ namespace Opt.Tests
         [Test]
         public void Constructor_TypeGivenIsAbstract_ThrowsArgumentException()
         {
-            Type type = typeof (TextReader);
+            Type type = typeof(TextReader);
 
             Assert.Throws<ArgumentException>(() => new PropertyMap(type));
         }
@@ -65,7 +65,7 @@ namespace Opt.Tests
         [Test]
         public void Constructor_TypeGivenIsNotAClass_ThrowsArgumentException()
         {
-            Type type = typeof (ICloneable);
+            Type type = typeof(ICloneable);
 
             Assert.Throws<ArgumentException>(() => new PropertyMap(type));
         }
@@ -73,7 +73,7 @@ namespace Opt.Tests
         [Test]
         public void IncorrectAttributeClass_ThrowsInvalidOperationException()
         {
-            Assert.Throws<InvalidOperationException>(() => new PropertyMap(typeof (ContainerWithUnknownAttribute)));
+            Assert.Throws<InvalidOperationException>(() => new PropertyMap(typeof(ContainerWithUnknownAttribute)));
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace Opt.Tests
         {
             IEnumerable<string> arguments = new string[0];
             var container = new object();
-            var map = new PropertyMap(typeof (FileStream));
+            var map = new PropertyMap(typeof(FileStream));
 
             Assert.Throws<InvalidOperationException>(() => map.Map(arguments, container));
         }
@@ -104,7 +104,7 @@ namespace Opt.Tests
         {
             IEnumerable<string> arguments = null;
             var container = new object();
-            var map = new PropertyMap(typeof (object));
+            var map = new PropertyMap(typeof(object));
 
             Assert.Throws<ArgumentNullException>(() => map.Map(arguments, container));
         }
@@ -114,7 +114,7 @@ namespace Opt.Tests
         {
             IEnumerable<string> arguments = new string[0];
             object container = null;
-            var map = new PropertyMap(typeof (object));
+            var map = new PropertyMap(typeof(object));
 
             Assert.Throws<ArgumentNullException>(() => map.Map(arguments, container));
         }
@@ -122,7 +122,7 @@ namespace Opt.Tests
         [Test]
         public void Type_WhenProperTypeGivenToConstructor_ContainsTypeGivenToConstructor()
         {
-            Type type = typeof (FileStream);
+            Type type = typeof(FileStream);
             var map = new PropertyMap(type);
 
             Assert.That(map.ContainerType, Is.EqualTo(type));

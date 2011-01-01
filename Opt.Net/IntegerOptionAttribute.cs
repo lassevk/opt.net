@@ -12,7 +12,7 @@ namespace Opt
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public sealed class IntegerOptionAttribute : BaseOptionAttribute
     {
-        private readonly Type[] _SupportedTypes = new[] { typeof (byte), typeof (byte?), typeof (sbyte), typeof (sbyte?), typeof (short), typeof (short?), typeof (ushort), typeof (ushort?), typeof (int), typeof (int?), typeof (uint), typeof (uint?), typeof (long), typeof (long?), typeof (ulong), typeof (ulong?), };
+        private readonly Type[] _SupportedTypes = new[] { typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?), };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntegerOptionAttribute"/> class.
@@ -121,7 +121,7 @@ namespace Opt
                 throw new ArgumentNullException("value");
 
             Type integerType = propertyInfo.PropertyType;
-            if (integerType.IsGenericType && integerType.GetGenericTypeDefinition() == typeof (Nullable<>))
+            if (integerType.IsGenericType && integerType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 integerType = integerType.GetGenericArguments()[0];
 
             object integerValue = Convert.ChangeType(value, integerType, CultureInfo.InvariantCulture);

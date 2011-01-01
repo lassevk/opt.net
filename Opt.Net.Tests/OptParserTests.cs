@@ -24,16 +24,16 @@ namespace Opt.Tests
             var container = OptParser.Parse<OptParserTests>(arguments);
 
             Assert.That(container, Is.Not.Null);
-            Assert.That(container, Is.InstanceOf(typeof (OptParserTests)));
+            Assert.That(container, Is.InstanceOf(typeof(OptParserTests)));
         }
 
         [Test]
         public void ParseWithContainerType_WithEmptyArguments_ReturnsObjectOfRightType()
         {
-            object container = OptParser.Parse(typeof (OptParserTests), Enumerable.Empty<string>());
+            object container = OptParser.Parse(typeof(OptParserTests), Enumerable.Empty<string>());
 
             Assert.That(container, Is.Not.Null);
-            Assert.That(container, Is.InstanceOf(typeof (OptParserTests)));
+            Assert.That(container, Is.InstanceOf(typeof(OptParserTests)));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace Opt.Tests
         [Test]
         public void ParseWithType_NullArguments_ThrowsArgumentNullException()
         {
-            Type containerType = typeof (OptParserTests);
+            Type containerType = typeof(OptParserTests);
             IEnumerable<string> arguments = null;
 
             Assert.Throws<ArgumentNullException>(() => OptParser.Parse(containerType, arguments));

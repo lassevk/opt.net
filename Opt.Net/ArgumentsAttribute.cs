@@ -31,7 +31,7 @@ namespace Opt
                 throw new ArgumentNullException("containerType");
 
             int propertiesWithThisAttribute = (from property in containerType.GetProperties()
-                                               where property.IsDefined(typeof (ArgumentsAttribute), true)
+                                               where property.IsDefined(typeof(ArgumentsAttribute), true)
                                                select property).Count();
 
             if (propertiesWithThisAttribute == 0)
@@ -56,9 +56,9 @@ namespace Opt
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
 
-            if (!propertyInfo.IsDefined(typeof (ArgumentsAttribute), true))
+            if (!propertyInfo.IsDefined(typeof(ArgumentsAttribute), true))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}", propertyInfo));
-            if (propertyInfo.PropertyType != typeof (Collection<string>))
+            if (propertyInfo.PropertyType != typeof(Collection<string>))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}", propertyInfo.PropertyType));
         }
     }
