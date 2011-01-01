@@ -75,6 +75,22 @@ namespace Opt.Tests
             Assert.Throws<FormatException>(() => attr.AssignValueToProperty(container, propertyInfo, input));
         }
 
+        [TestCase("-i10", 10)]
+        [TestCase("-i-10", -10)]
+        [TestCase("--int32=10", 10)]
+        [TestCase("--int32=-10", -10)]
+        public void OptParser_WithIntegerArguments_AssignsToProperties(string argument, int expected)
+        {
+            var container = new Container();
+            var map = new PropertyMap(typeof(Container));
+
+            var leftovers = map.Map(new[] { argument }, container);
+
+            Assert.That(container.Int32Property, Is.EqualTo(expected));
+            Assert.That(container.Int32PropertyWasSet, Is.True);
+            CollectionAssert.AreEqual(leftovers, new string[0]);
+        }
+
         [Test]
         public void AssignValueToProperty_NullContainer_ThrowsArgumentNullException()
         {
