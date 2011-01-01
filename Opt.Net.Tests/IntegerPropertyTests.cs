@@ -43,7 +43,7 @@ namespace Opt.Tests
         {
             var attr = new IntegerOptionAttribute("-t", "VALUE");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("Int32Property");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("Int32Property");
 
             Assert.That(container.Int32Property, Is.EqualTo(0));
 
@@ -59,7 +59,7 @@ namespace Opt.Tests
         {
             var attr = new IntegerOptionAttribute("-t", "VALUE");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("Int32Property");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("Int32Property");
 
             Assert.Throws<OverflowException>(() => attr.AssignValueToProperty(container, propertyInfo, input));
         }
@@ -70,7 +70,7 @@ namespace Opt.Tests
         {
             var attr = new IntegerOptionAttribute("-t", "VALUE");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("Int32Property");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("Int32Property");
 
             Assert.Throws<FormatException>(() => attr.AssignValueToProperty(container, propertyInfo, input));
         }
@@ -84,7 +84,7 @@ namespace Opt.Tests
             var container = new Container();
             var map = new PropertyMap(typeof(Container));
 
-            var leftovers = map.Map(new[] { argument }, container);
+            string[] leftovers = map.Map(new[] { argument }, container);
 
             Assert.That(container.Int32Property, Is.EqualTo(expected));
             Assert.That(container.Int32PropertyWasSet, Is.True);
@@ -96,7 +96,7 @@ namespace Opt.Tests
         {
             var attr = new IntegerOptionAttribute("-t", "VALUE");
             object container = null;
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("Int32Property");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("Int32Property");
             string value = "10";
 
             Assert.Throws<ArgumentNullException>(() => attr.AssignValueToProperty(container, propertyInfo, value));
@@ -118,7 +118,7 @@ namespace Opt.Tests
         {
             var attr = new IntegerOptionAttribute("-t", "VALUE");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("Int32Property");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("Int32Property");
             string value = null;
 
             Assert.Throws<ArgumentNullException>(() => attr.AssignValueToProperty(container, propertyInfo, value));

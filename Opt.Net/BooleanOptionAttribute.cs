@@ -95,7 +95,7 @@ namespace Opt
             if (propertyInfo == null)
                 throw new ArgumentNullException("propertyInfo");
 
-            if (propertyInfo.PropertyType != typeof (bool) && propertyInfo.PropertyType != typeof (bool?))
+            if (propertyInfo.PropertyType != typeof(bool) && propertyInfo.PropertyType != typeof(bool?))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The BooleanOptionAttribute can only be applied to properties of type Boolean and Nullable<Boolean> (Boolean?), was applied to a property of type {0}", propertyInfo.PropertyType));
         }
 

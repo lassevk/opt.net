@@ -83,7 +83,7 @@ namespace Opt.Tests
         {
             var attr = new BooleanOptionAttribute("-t");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("DefaultFalseProperty");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("DefaultFalseProperty");
 
             Assert.That(container.DefaultFalseProperty, Is.False);
 
@@ -104,7 +104,7 @@ namespace Opt.Tests
         {
             var attr = new BooleanOptionAttribute("-t");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("DefaultFalseProperty");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("DefaultFalseProperty");
 
             Assert.Throws<InvalidOperationException>(() => attr.AssignValueToProperty(container, propertyInfo, input));
         }
@@ -119,7 +119,7 @@ namespace Opt.Tests
         {
             var attr = new BooleanOptionAttribute("-f");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("DefaultTrueProperty");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("DefaultTrueProperty");
 
             Assert.That(container.DefaultTrueProperty, Is.True);
 
@@ -134,7 +134,7 @@ namespace Opt.Tests
         {
             var attr = new BooleanOptionAttribute("-t");
             object container = null;
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("DefaultFalseProperty");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("DefaultFalseProperty");
             string value = "true";
 
             Assert.Throws<ArgumentNullException>(() => attr.AssignValueToProperty(container, propertyInfo, value));
@@ -156,7 +156,7 @@ namespace Opt.Tests
         {
             var attr = new BooleanOptionAttribute("-t");
             var container = new Container();
-            PropertyInfo propertyInfo = typeof (Container).GetProperty("DefaultFalseProperty");
+            PropertyInfo propertyInfo = typeof(Container).GetProperty("DefaultFalseProperty");
             string value = null;
 
             Assert.Throws<ArgumentNullException>(() => attr.AssignValueToProperty(container, propertyInfo, value));
@@ -165,7 +165,7 @@ namespace Opt.Tests
         [Test]
         public void Map_WithLongOption_SetsProperty()
         {
-            var map = new PropertyMap(typeof (Container));
+            var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[] { "--prop1" };
 
@@ -179,7 +179,7 @@ namespace Opt.Tests
         [Test]
         public void Map_WithShortOptionWithMinus_SetsPropertyToFalse()
         {
-            var map = new PropertyMap(typeof (Container));
+            var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[] { "-t-" };
 
@@ -193,7 +193,7 @@ namespace Opt.Tests
         [Test]
         public void Map_WithShortOptionWithPlus_SetsPropertyToTrue()
         {
-            var map = new PropertyMap(typeof (Container));
+            var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[] { "-t+" };
 
@@ -207,7 +207,7 @@ namespace Opt.Tests
         [Test]
         public void Map_WithShortOption_SetsProperty()
         {
-            var map = new PropertyMap(typeof (Container));
+            var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[] { "-t" };
 
@@ -221,7 +221,7 @@ namespace Opt.Tests
         [Test]
         public void Map_WithoutOption_LeaveOptionUnchanged()
         {
-            var map = new PropertyMap(typeof (Container));
+            var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new string[0];
 
@@ -235,7 +235,7 @@ namespace Opt.Tests
         [Test]
         public void ValidateUsage_OnNonBooleanProperty_ThrowsInvalidOperationException()
         {
-            PropertyInfo propertyInfo = typeof (IncorrectContainer).GetProperty("DummyProperty");
+            PropertyInfo propertyInfo = typeof(IncorrectContainer).GetProperty("DummyProperty");
             var attr = new BooleanOptionAttribute("-t");
 
             Assert.Throws<InvalidOperationException>(() => attr.ValidateUsage(propertyInfo));
