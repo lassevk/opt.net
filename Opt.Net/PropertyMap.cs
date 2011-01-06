@@ -37,6 +37,14 @@ namespace Opt
         /// <param name="containerType">
         /// The type to find all mappable properties for.
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="containerType"/> is <c>null</c>.</para>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// <para><paramref name="containerType"/> is not a class (<see cref="Type.IsClass"/> returns <c>false</c>.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="containerType"/> is an abstract class (<see cref="Type.IsAbstract"/> returns <c>true</c>.)</para>
+        /// </exception>
         public PropertyMap(Type containerType)
         {
             if (containerType == null)
@@ -64,6 +72,9 @@ namespace Opt
         /// <summary>
         /// Discover all the mappable properties from the container type.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// An unknown descendant type of <see cref="BasePropertyAttribute"/> was detected.
+        /// </exception>
         private void DiscoverMappableProperties()
         {
             // List<Tuple<PropertyInfo, ArgumentAttribute>> argumentProperties = new List<Tuple<PropertyInfo, ArgumentAttribute>>();
@@ -117,6 +128,12 @@ namespace Opt
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// <para><paramref name="container"/> is not the same <see cref="ContainerType"/> as the original type given to this <see cref="PropertyMap"/>.</para>
+        /// </exception>
+        /// <exception cref="UnknownOptionException">
+        /// An unknown option was specified on the command line, one that was not declared in the container type.
+        /// </exception>
+        /// <exception cref="OptionSyntaxException">
+        /// Argument starts with three or more minus signs, this is not legal.
         /// </exception>
         public string[] Map(IEnumerable<string> arguments, object container)
         {

@@ -98,6 +98,9 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <para>The <see cref="IntegerOptionAttribute"/> attribute has been applied to a property that is not of an integer type.</para>
+        /// </exception>
         public override void ValidateUsage(PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)

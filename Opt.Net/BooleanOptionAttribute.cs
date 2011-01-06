@@ -107,6 +107,9 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <para>The <see cref="BooleanOptionAttribute"/> attribute has been applied to a property that is not of type <see cref="Boolean"/>.</para>
+        /// </exception>
         public override void ValidateUsage(PropertyInfo propertyInfo)
         {
             if (propertyInfo == null)
@@ -136,6 +139,9 @@ namespace Opt
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// <para>- or -</para>
         /// <para><paramref name="value"/> is <c>null</c>.</para>
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Unable to assign boolean value to property for option, unknown property value.
         /// </exception>
         public override void AssignValueToProperty(object container, PropertyInfo propertyInfo, string value)
         {
