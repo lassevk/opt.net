@@ -231,7 +231,7 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="argument"/> is <c>null</c> or empty.</para>
         /// </exception>
-        private void SplitOptionAndArgument(string argument, out string option, out string value)
+        private static void SplitOptionAndArgument(string argument, out string option, out string value)
         {
             if (StringEx.IsNullOrWhiteSpace(argument))
                 throw new ArgumentNullException("argument");
