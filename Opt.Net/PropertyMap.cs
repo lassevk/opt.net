@@ -145,45 +145,59 @@ namespace Opt
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The given container was not the same type as the original type given to PropertyMap, this is an internal error (aka bug), original type was {0}, container type was {1}", _ContainerType, container.GetType()));
 
             var leftovers = new List<string>();
-            foreach (string argument in arguments)
+            using (IEnumerator<string> argumentEnumerable = arguments.GetEnumerator())
             {
-                if ((argument.StartsWith("--", StringComparison.Ordinal) || argument.StartsWith("-", StringComparison.Ordinal)) && !argument.StartsWith("---", StringComparison.Ordinal))
+                while (argumentEnumerable.MoveNext())
                 {
-                    string option;
-                    string value;
+                    string argument = argumentEnumerable.Current;
 
-                    if (argument.StartsWith("--", StringComparison.Ordinal))
+                    if ((argument.StartsWith("--", StringComparison.Ordinal) || argument.StartsWith("-", StringComparison.Ordinal)) && !argument.StartsWith("---", StringComparison.Ordinal))
                     {
-                        int valueIndex = argument.IndexOf('=');
-                        if (valueIndex < 0)
+                        string option;
+                        string value;
+
+                        if (argument.StartsWith("--", StringComparison.Ordinal))
                         {
-                            option = argument;
-                            value = string.Empty;
+                            SplitOptionAndArgument(argument, out option, out value);
                         }
                         else
                         {
-                            option = argument.Substring(0, valueIndex).Trim();
-                            value = argument.Substring(valueIndex + 1);
+                            option = argument.Substring(0, 2);
+                            value = argument.Substring(2);
                         }
-                    }
-                    else
-                    {
-                        option = argument.Substring(0, 2);
-                        value = argument.Substring(2);
-                    }
 
-                    KeyValuePair<PropertyInfo, BaseOptionAttribute> entry;
-                    if (_Properties.TryGetValue(option, out entry))
-                    {
-                        entry.Value.AssignValueToProperty(container, entry.Key, value);
+                        KeyValuePair<PropertyInfo, BaseOptionAttribute> entry;
+                        if (_Properties.TryGetValue(option, out entry))
+                        {
+                            if (entry.Value.RequiresArgument)
+                            {
+                                if (StringEx.IsNullOrWhiteSpace(value))
+                                {
+                                    if (!argumentEnumerable.MoveNext())
+                                        throw new OptionSyntaxException(string.Format(CultureInfo.InvariantCulture, "option {0} requires an argument but none was provided", option));
+
+                                    if (argumentEnumerable.Current.StartsWith("-"))
+                                    {
+                                        string possibleOption;
+                                        string possibleArgument;
+                                        SplitOptionAndArgument(argumentEnumerable.Current, out possibleOption, out possibleArgument);
+                                        if (_Properties.ContainsKey(possibleOption))
+                                            throw new OptionSyntaxException(string.Format(CultureInfo.InvariantCulture, "option {0} requires an argument but none was provided", option));
+                                    }
+
+                                    value = argumentEnumerable.Current;
+                                }
+                            }
+                            entry.Value.AssignValueToProperty(container, entry.Key, value);
+                        }
+                        else
+                            throw new UnknownOptionException(string.Format(CultureInfo.InvariantCulture, "Unknown option {0}", argument));
                     }
+                    else if (argument.StartsWith("-", StringComparison.Ordinal))
+                        throw new OptionSyntaxException("Argument starts with three or more minus signs, this is not legal");
                     else
-                        throw new UnknownOptionException(string.Format(CultureInfo.InvariantCulture, "Unknown option {0}", argument));
+                        leftovers.Add(argument);
                 }
-                else if (argument.StartsWith("-", StringComparison.Ordinal))
-                    throw new OptionSyntaxException("Argument starts with three or more minus signs, this is not legal");
-                else
-                    leftovers.Add(argument);
             }
 
             if (_ArgumentsProperty != null)
@@ -206,6 +220,21 @@ namespace Opt
             }
 
             return leftovers.ToArray();
+        }
+
+        private void SplitOptionAndArgument(string argument, out string option, out string value)
+        {
+            int valueIndex = argument.IndexOf('=');
+            if (valueIndex < 0)
+            {
+                option = argument;
+                value = string.Empty;
+            }
+            else
+            {
+                option = argument.Substring(0, valueIndex).Trim();
+                value = argument.Substring(valueIndex + 1);
+            }
         }
     }
 }
