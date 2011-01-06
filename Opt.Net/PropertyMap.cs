@@ -59,6 +59,17 @@ namespace Opt
         }
 
         /// <summary>
+        /// Gets a collection
+        /// </summary>
+        internal IEnumerable<KeyValuePair<PropertyInfo, BaseOptionAttribute>> MappedProperties
+        {
+            get
+            {
+                return _Properties.Values;
+            }
+        }
+
+        /// <summary>
         /// Gets the type of object this <see cref="PropertyMap"/> handles.
         /// </summary>
         public Type ContainerType
