@@ -92,6 +92,22 @@ namespace Opt.Tests
             CollectionAssert.AreEqual(leftovers, new string[0]);
         }
 
+        [TestCase("-i", "10", 10)]
+        [TestCase("-i", "-10", -10)]
+        [TestCase("--int32", "10", 10)]
+        [TestCase("--int32", "-10", -10)]
+        public void OptParser_WithSeparateIntegerArguments_AssignsToProperties(string option, string argument, int expected)
+        {
+            var container = new Container();
+            var map = new PropertyMap(typeof(Container));
+
+            string[] leftovers = map.Map(new[] { option, argument }, container);
+
+            Assert.That(container.Int32Property, Is.EqualTo(expected));
+            Assert.That(container.Int32PropertyWasSet, Is.True);
+            CollectionAssert.AreEqual(leftovers, new string[0]);
+        }
+
         [Test]
         public void AssignValueToProperty_NullContainer_ThrowsArgumentNullException()
         {
