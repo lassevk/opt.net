@@ -76,6 +76,9 @@
     <None Include="..\Opt.Net.snk">
       <Link>Opt.Net.snk</Link>
     </None>
+    <None Include="Settings.StyleCop">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

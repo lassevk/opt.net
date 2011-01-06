@@ -16,6 +16,18 @@ namespace Opt
     public sealed class ArgumentsAttribute : BasePropertyAttribute
     {
         /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// When implemented in a descendant class, will validate the usage of the attribute
         /// on the container type.
         /// </summary>
@@ -60,18 +72,6 @@ namespace Opt
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}", propertyInfo));
             if (propertyInfo.PropertyType != typeof(Collection<string>))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}", propertyInfo.PropertyType));
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the property type requires an argument, either as part
-        /// of the option, or following the option.
-        /// </summary>
-        public override bool RequiresArgument
-        {
-            get
-            {
-                return false;
-            }
         }
     }
 }

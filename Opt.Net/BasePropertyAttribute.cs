@@ -11,6 +11,15 @@ namespace Opt
     public abstract class BasePropertyAttribute : Attribute
     {
         /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public abstract bool RequiresArgument
+        {
+            get;
+        }
+
+        /// <summary>
         /// When implemented in a descendant class, will validate the usage of the attribute
         /// on the container type.
         /// </summary>
@@ -33,11 +42,5 @@ namespace Opt
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
         public abstract void ValidateUsage(PropertyInfo propertyInfo);
-
-        /// <summary>
-        /// Gets a value indicating whether the property type requires an argument, either as part
-        /// of the option, or following the option.
-        /// </summary>
-        public abstract bool RequiresArgument { get; }
     }
 }

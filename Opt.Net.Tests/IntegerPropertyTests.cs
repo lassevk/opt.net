@@ -20,6 +20,7 @@ namespace Opt.Tests
                 {
                     return _Int32Property;
                 }
+
                 set
                 {
                     _Int32Property = value;

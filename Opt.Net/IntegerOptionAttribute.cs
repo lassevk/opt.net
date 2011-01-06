@@ -12,6 +12,10 @@ namespace Opt
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public sealed class IntegerOptionAttribute : BaseOptionAttribute
     {
+        /// <summary>
+        /// This field holds a collection supported types that this <see cref="IntegerOptionAttribute"/>
+        /// attribute can handle.
+        /// </summary>
         private readonly Type[] _SupportedTypes = new[] { typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?), };
 
         /// <summary>
@@ -20,12 +24,12 @@ namespace Opt
         /// <param name="option">The option this <see cref="BaseOptionAttribute"/> will handle. Must be prefixed with either two minus signs (for long
         /// options), or one minus sign (for short options.)</param>
         /// <exception cref="ArgumentException">
-        /// 	<para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
-        /// 	<para>- or -</para>
-        /// 	<para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
+        /// <para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// 	<para><paramref name="option"/> is <c>null</c> or empty.</para>
+        /// <para><paramref name="option"/> is <c>null</c> or empty.</para>
         /// </exception>
         public IntegerOptionAttribute(string option)
             : this(option, "VALUE")
@@ -41,19 +45,31 @@ namespace Opt
         /// <param name="parameterName">The name of the parameter, this is mostly used for help texts. This should be <see cref="String.Empty"/>
         /// if no parameter is used.</param>
         /// <exception cref="ArgumentException">
-        /// 	<para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
-        /// 	<para>- or -</para>
-        /// 	<para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
+        /// <para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// 	<para><paramref name="option"/> is <c>null</c> or empty.</para>
-        /// 	<para>- or -</para>
-        /// 	<para><paramref name="parameterName"/> is <c>null</c>.</para>
+        /// <para><paramref name="option"/> is <c>null</c> or empty.</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="parameterName"/> is <c>null</c>.</para>
         /// </exception>
         public IntegerOptionAttribute(string option, string parameterName)
             : base(option, parameterName)
         {
             // Do nothing here
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return true;
+            }
         }
 
         /// <summary>
@@ -126,18 +142,6 @@ namespace Opt
 
             object integerValue = Convert.ChangeType(value, integerType, CultureInfo.InvariantCulture);
             propertyInfo.SetValue(container, integerValue, null);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the property type requires an argument, either as part
-        /// of the option, or following the option.
-        /// </summary>
-        public override bool RequiresArgument
-        {
-            get
-            {
-                return true;
-            }
         }
     }
 }

@@ -16,6 +16,14 @@ namespace Opt.Tests
             {
             }
 
+            public override bool RequiresArgument
+            {
+                get
+                {
+                    return false;
+                }
+            }
+
             public override void ValidateUsage(Type containerType)
             {
             }
@@ -26,14 +34,6 @@ namespace Opt.Tests
 
             public override void AssignValueToProperty(object container, PropertyInfo propertyInfo, string value)
             {
-            }
-
-            public override bool RequiresArgument
-            {
-                get
-                {
-                    return false;
-                }
             }
         }
 
@@ -73,7 +73,7 @@ namespace Opt.Tests
             Assert.Throws<ArgumentNullException>(() => attribute.ValidateUsage(propertyInfo));
         }
 
-        [TestCase((string) null)]
+        [TestCase((string)null)]
         [TestCase("")]
         [TestCase(" \t\n\r")]
         public void Constructor_NullOrEmptyOption_ThrowsArgumentNullException(string input)

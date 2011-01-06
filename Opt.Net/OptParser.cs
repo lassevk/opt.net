@@ -74,6 +74,11 @@ namespace Opt
         /// <param name="arguments">
         /// The arguments to parse.
         /// </param>
+        /// <returns>
+        /// A collection of all the leftover arguments after parsing the given options/arguments,
+        /// or an empty collection if there are none or they were put into a collection in the
+        /// container object itself.
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="container"/> is <c>null</c>.</para>
         /// <para>- or -</para>

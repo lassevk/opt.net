@@ -4,3 +4,4 @@ glob:bin/
 glob:obj/
 glob:_ReSharper.*/
 glob:Help/
+glob:*.[Cc]ache
