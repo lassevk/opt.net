@@ -18,9 +18,9 @@ namespace Opt
         /// attribute can handle, and is the backing field for the <see cref="SupportedTypes"/> property.
         /// </summary>
         private static readonly Type[] _SupportedTypes = new[]
-            {
-                typeof(float), typeof(float?), typeof(double), typeof(double?), typeof(decimal), typeof(decimal?),
-            };
+        {
+            typeof(float), typeof(float?), typeof(double), typeof(double?), typeof(decimal), typeof(decimal?),
+        };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FloatingPointOptionAttribute"/> class.
@@ -155,12 +155,12 @@ namespace Opt
             if (value == null)
                 throw new ArgumentNullException("value");
 
-            Type fpType = propertyInfo.PropertyType;
-            if (fpType.IsGenericType && fpType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                fpType = fpType.GetGenericArguments()[0];
+            Type floatingPointType = propertyInfo.PropertyType;
+            if (floatingPointType.IsGenericType && floatingPointType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                floatingPointType = floatingPointType.GetGenericArguments()[0];
 
-            object fpValue = Convert.ChangeType(value, fpType, CultureInfo.InvariantCulture);
-            propertyInfo.SetValue(container, fpValue, null);
+            object floatingPointValue = Convert.ChangeType(value, floatingPointType, CultureInfo.InvariantCulture);
+            propertyInfo.SetValue(container, floatingPointValue, null);
         }
     }
 }

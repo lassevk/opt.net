@@ -25,18 +25,18 @@ namespace Opt.Tests
             string tempFileName2 = GetTempFileName();
 
             File.WriteAllLines(tempFileName1, new[]
-                {
-                    "2", "@" + tempFileName2, "3"
-                });
+            {
+                "2", "@" + tempFileName2, "3"
+            });
             File.WriteAllLines(tempFileName2, new[]
-                {
-                    "2", "@" + tempFileName1, "3"
-                });
+            {
+                "2", "@" + tempFileName1, "3"
+            });
 
             IEnumerable<string> input = new[]
-                {
-                    "1", "@" + tempFileName1, "4"
-                };
+            {
+                "1", "@" + tempFileName1, "4"
+            };
 
             Assert.Throws<InvalidOperationException>(() => new ArgumentsCollection(input).ToArray());
         }
@@ -47,14 +47,14 @@ namespace Opt.Tests
             string tempFileName = GetTempFileName();
 
             File.WriteAllLines(tempFileName, new[]
-                {
-                    "2", "3"
-                });
+            {
+                "2", "3"
+            });
 
             IEnumerable<string> input = new[]
-                {
-                    "1", "@" + tempFileName, "@" + tempFileName, "4"
-                };
+            {
+                "1", "@" + tempFileName, "@" + tempFileName, "4"
+            };
 
             Assert.Throws<InvalidOperationException>(() => new ArgumentsCollection(input).ToArray());
         }
@@ -66,13 +66,13 @@ namespace Opt.Tests
             File.WriteAllText(tempFileName, String.Empty);
 
             IEnumerable<string> input = new[]
-                {
-                    "1", "@" + tempFileName, "2"
-                };
+            {
+                "1", "@" + tempFileName, "2"
+            };
             IEnumerable<string> expected = new[]
-                {
-                    "1", "2"
-                };
+            {
+                "1", "2"
+            };
 
             string[] output = new ArgumentsCollection(input).ToArray();
 
@@ -86,22 +86,22 @@ namespace Opt.Tests
             string tempFileName2 = GetTempFileName();
 
             File.WriteAllLines(tempFileName1, new[]
-                {
-                    "2", "@" + tempFileName2, "5"
-                });
+            {
+                "2", "@" + tempFileName2, "5"
+            });
             File.WriteAllLines(tempFileName2, new[]
-                {
-                    "3", "4"
-                });
+            {
+                "3", "4"
+            });
 
             IEnumerable<string> input = new[]
-                {
-                    "1", "@" + tempFileName1, "6"
-                };
+            {
+                "1", "@" + tempFileName1, "6"
+            };
             IEnumerable<string> expected = new[]
-                {
-                    "1", "2", "3", "4", "5", "6"
-                };
+            {
+                "1", "2", "3", "4", "5", "6"
+            };
 
             string[] output = new ArgumentsCollection(input).ToArray();
 
@@ -112,13 +112,13 @@ namespace Opt.Tests
         public void Enumerate_WithNullElements_ReturnsOriginalInputMinusNullElements()
         {
             IEnumerable<string> input = new[]
-                {
-                    "1", "2", null, "3", "A", null, "B", "C", string.Empty, null
-                };
+            {
+                "1", "2", null, "3", "A", null, "B", "C", string.Empty, null
+            };
             IEnumerable<string> expected = new[]
-                {
-                    "1", "2", "3", "A", "B", "C", string.Empty
-                };
+            {
+                "1", "2", "3", "A", "B", "C", string.Empty
+            };
 
             string[] output = new ArgumentsCollection(input).ToArray();
 
@@ -130,18 +130,18 @@ namespace Opt.Tests
         {
             string tempFileName = GetTempFileName();
             File.WriteAllLines(tempFileName, new[]
-                {
-                    "2", "3"
-                });
+            {
+                "2", "3"
+            });
 
             IEnumerable<string> input = new[]
-                {
-                    "1", "@" + tempFileName, "4"
-                };
+            {
+                "1", "@" + tempFileName, "4"
+            };
             IEnumerable<string> expected = new[]
-                {
-                    "1", "2", "3", "4"
-                };
+            {
+                "1", "2", "3", "4"
+            };
 
             string[] output = new ArgumentsCollection(input).ToArray();
 
@@ -152,9 +152,9 @@ namespace Opt.Tests
         public void Enumerate_WithSimpleArgumentsInput_ReturnsOriginalInput()
         {
             IEnumerable<string> arguments = new[]
-                {
-                    "1", "2", "3", "A", "B", "C", string.Empty
-                };
+            {
+                "1", "2", "3", "A", "B", "C", string.Empty
+            };
 
             string[] output = new ArgumentsCollection(arguments).ToArray();
 
@@ -165,9 +165,9 @@ namespace Opt.Tests
         public void NonGenericEnumerate_WithSimpleArgumentsInput_ReturnsOriginalInput()
         {
             IEnumerable<string> arguments = new[]
-                {
-                    "1", "2", "3", "A", "B", "C", string.Empty
-                };
+            {
+                "1", "2", "3", "A", "B", "C", string.Empty
+            };
 
             var collection = new ArgumentsCollection(arguments);
             var enumerable = collection as IEnumerable;

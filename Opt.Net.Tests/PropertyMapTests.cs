@@ -89,9 +89,9 @@ namespace Opt.Tests
         {
             var container = new ContainerWithArguments();
             var arguments = new[]
-                {
-                    "a", "b"
-                };
+            {
+                "a", "b"
+            };
             var map = new PropertyMap(container.GetType());
 
             string[] leftovers = map.Map(arguments, container);

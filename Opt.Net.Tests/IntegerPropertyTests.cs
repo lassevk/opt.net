@@ -87,9 +87,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
 
             string[] leftovers = map.Map(new[]
-                {
-                    argument
-                }, container);
+            {
+                argument
+            }, container);
 
             Assert.That(container.Int32Property, Is.EqualTo(expected));
             Assert.That(container.Int32PropertyWasSet, Is.True);
@@ -106,9 +106,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
 
             string[] leftovers = map.Map(new[]
-                {
-                    option, argument
-                }, container);
+            {
+                option, argument
+            }, container);
 
             Assert.That(container.Int32Property, Is.EqualTo(expected));
             Assert.That(container.Int32PropertyWasSet, Is.True);
@@ -128,17 +128,17 @@ namespace Opt.Tests
                 object zero = Activator.CreateInstance(underlyingIntegerType);
 
                 yield return new[]
-                    {
-                        integerType, minValue
-                    };
+                {
+                    integerType, minValue
+                };
                 yield return new[]
-                    {
-                        integerType, zero
-                    };
+                {
+                    integerType, zero
+                };
                 yield return new[]
-                    {
-                        integerType, maxValue
-                    };
+                {
+                    integerType, maxValue
+                };
             }
         }
 
@@ -150,9 +150,9 @@ namespace Opt.Tests
             PropertyInfo property = finishedType.GetProperty("Value");
 
             var arguments = new[]
-                {
-                    "-p", value.ToString()
-                };
+            {
+                "-p", value.ToString()
+            };
             string[] leftOvers = OptParser.Parse(instance, arguments);
 
             CollectionAssert.AreEqual(leftOvers, new string[0]);
