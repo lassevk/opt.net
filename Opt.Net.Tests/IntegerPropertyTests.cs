@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using NUnit.Framework;
@@ -85,7 +86,10 @@ namespace Opt.Tests
             var container = new Container();
             var map = new PropertyMap(typeof(Container));
 
-            string[] leftovers = map.Map(new[] { argument }, container);
+            string[] leftovers = map.Map(new[]
+                {
+                    argument
+                }, container);
 
             Assert.That(container.Int32Property, Is.EqualTo(expected));
             Assert.That(container.Int32PropertyWasSet, Is.True);
@@ -101,11 +105,60 @@ namespace Opt.Tests
             var container = new Container();
             var map = new PropertyMap(typeof(Container));
 
-            string[] leftovers = map.Map(new[] { option, argument }, container);
+            string[] leftovers = map.Map(new[]
+                {
+                    option, argument
+                }, container);
 
             Assert.That(container.Int32Property, Is.EqualTo(expected));
             Assert.That(container.Int32PropertyWasSet, Is.True);
             CollectionAssert.AreEqual(leftovers, new string[0]);
+        }
+
+        public IEnumerable<object[]> SupportedIntegerType_TestDataSource()
+        {
+            foreach (Type integerType in IntegerOptionAttribute.SupportedTypes)
+            {
+                Type underlyingIntegerType = integerType;
+                if (integerType.IsGenericType)
+                    underlyingIntegerType = integerType.GetGenericArguments()[0];
+
+                object minValue = underlyingIntegerType.GetField("MinValue", BindingFlags.Static | BindingFlags.Public).GetValue(null);
+                object maxValue = underlyingIntegerType.GetField("MaxValue", BindingFlags.Static | BindingFlags.Public).GetValue(null);
+                object zero = Activator.CreateInstance(underlyingIntegerType);
+
+                yield return new[]
+                    {
+                        integerType, minValue
+                    };
+                yield return new[]
+                    {
+                        integerType, zero
+                    };
+                yield return new[]
+                    {
+                        integerType, maxValue
+                    };
+            }
+        }
+
+        [TestCaseSource("SupportedIntegerType_TestDataSource")]
+        public void SupportedIntegerType_IsSetProperly(Type integerType, object value)
+        {
+            Type finishedType = TypeCreator.CreateContainerType(integerType, typeof(IntegerOptionAttribute));
+            object instance = Activator.CreateInstance(finishedType);
+            PropertyInfo property = finishedType.GetProperty("Value");
+
+            var arguments = new[]
+                {
+                    "-p", value.ToString()
+                };
+            string[] leftOvers = OptParser.Parse(instance, arguments);
+
+            CollectionAssert.AreEqual(leftOvers, new string[0]);
+
+            object propertyValue = property.GetValue(instance, null);
+            Assert.That(propertyValue, Is.EqualTo(value));
         }
 
         [Test]

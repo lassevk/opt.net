@@ -62,6 +62,7 @@
     <Compile Include="BooleanOptionAttribute.cs" />
     <Compile Include="BaseOptionAttribute.cs" />
     <Compile Include="ConsoleLineWriter.cs" />
+    <Compile Include="FloatingPointProperty.cs" />
     <Compile Include="ILineWriter.cs" />
     <Compile Include="IntegerOptionAttribute.cs" />
     <Compile Include="OptionException.cs" />
