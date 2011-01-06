@@ -7,23 +7,23 @@ using System.Reflection;
 namespace Opt
 {
     /// <summary>
-    /// This <see cref="BaseOptionAttribute"/> descendant can be applied to <see cref="int"/> and other
-    /// integer-type properties in order to specify how to map command line arguments to that property.
+    /// This <see cref="BaseOptionAttribute"/> descendant can be applied to <see cref="float"/> and other
+    /// floating-point-type properties in order to specify how to map command line arguments to that property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
-    public sealed class IntegerOptionAttribute : BaseOptionAttribute
+    public sealed class FloatingPointOptionAttribute : BaseOptionAttribute
     {
         /// <summary>
-        /// This field holds a collection supported types that this <see cref="IntegerOptionAttribute"/>
+        /// This field holds a collection supported types that this <see cref="FloatingPointOptionAttribute"/>
         /// attribute can handle, and is the backing field for the <see cref="SupportedTypes"/> property.
         /// </summary>
         private static readonly Type[] _SupportedTypes = new[]
             {
-                typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?),
+                typeof(float), typeof(float?), typeof(double), typeof(double?), typeof(decimal), typeof(decimal?),
             };
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerOptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="FloatingPointOptionAttribute"/> class.
         /// </summary>
         /// <param name="option">The option this <see cref="BaseOptionAttribute"/> will handle. Must be prefixed with either two minus signs (for long
         /// options), or one minus sign (for short options.)</param>
@@ -35,14 +35,14 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="option"/> is <c>null</c> or empty.</para>
         /// </exception>
-        public IntegerOptionAttribute(string option)
+        public FloatingPointOptionAttribute(string option)
             : this(option, "VALUE")
         {
             // Do nothing here
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerOptionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="FloatingPointOptionAttribute"/> class.
         /// </summary>
         /// <param name="option">The option this <see cref="BaseOptionAttribute"/> will handle. Must be prefixed with either two minus signs (for long
         /// options), or one minus sign (for short options.)</param>
@@ -58,14 +58,14 @@ namespace Opt
         /// <para>- or -</para>
         /// <para><paramref name="parameterName"/> is <c>null</c>.</para>
         /// </exception>
-        public IntegerOptionAttribute(string option, string parameterName)
+        public FloatingPointOptionAttribute(string option, string parameterName)
             : base(option, parameterName)
         {
             // Do nothing here
         }
 
         /// <summary>
-        /// Gets the collection of supported integer types that this <see cref="IntegerOptionAttribute"/>
+        /// Gets the collection of supported floating-point types that this <see cref="FloatingPointOptionAttribute"/>
         /// attribute can handle.
         /// </summary>
         public static IEnumerable<Type> SupportedTypes
@@ -115,7 +115,7 @@ namespace Opt
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// <para>The <see cref="IntegerOptionAttribute"/> attribute has been applied to a property that is not of an integer type.</para>
+        /// <para>The <see cref="FloatingPointOptionAttribute"/> attribute has been applied to a property that is not a floating point type.</para>
         /// </exception>
         public override void ValidateUsage(PropertyInfo propertyInfo)
         {
@@ -123,7 +123,7 @@ namespace Opt
                 throw new ArgumentNullException("propertyInfo");
 
             if (!_SupportedTypes.Contains(propertyInfo.PropertyType))
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The IntegerOptionAttribute can only be applied to properties of any of the integer types, including nullable variants of them, was applied to a property of type {0}", propertyInfo.PropertyType));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The FloatingPointOptionAttribute can only be applied to properties of any of the floating-point types, including nullable variants of them, was applied to a property of type {0}", propertyInfo.PropertyType));
         }
 
         /// <summary>
@@ -155,12 +155,12 @@ namespace Opt
             if (value == null)
                 throw new ArgumentNullException("value");
 
-            Type integerType = propertyInfo.PropertyType;
-            if (integerType.IsGenericType && integerType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                integerType = integerType.GetGenericArguments()[0];
+            Type fpType = propertyInfo.PropertyType;
+            if (fpType.IsGenericType && fpType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                fpType = fpType.GetGenericArguments()[0];
 
-            object integerValue = Convert.ChangeType(value, integerType, CultureInfo.InvariantCulture);
-            propertyInfo.SetValue(container, integerValue, null);
+            object fpValue = Convert.ChangeType(value, fpType, CultureInfo.InvariantCulture);
+            propertyInfo.SetValue(container, fpValue, null);
         }
     }
 }

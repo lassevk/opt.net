@@ -77,6 +77,7 @@
     <Compile Include="PropertyMapTests.cs" />
     <Compile Include="StringPropertyTests.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="TypeCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">

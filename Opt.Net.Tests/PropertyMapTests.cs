@@ -88,7 +88,10 @@ namespace Opt.Tests
         public void LeftOverArguments_AreStoredIntoTheArgumentsProperty()
         {
             var container = new ContainerWithArguments();
-            var arguments = new[] { "a", "b" };
+            var arguments = new[]
+                {
+                    "a", "b"
+                };
             var map = new PropertyMap(container.GetType());
 
             string[] leftovers = map.Map(arguments, container);

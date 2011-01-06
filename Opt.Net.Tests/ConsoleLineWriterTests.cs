@@ -59,7 +59,13 @@ namespace Opt.Tests
             writer.WriteErrorLine("LINE1");
             writer.WriteErrorLine("LINE2");
 
-            CollectionAssert.AreEqual(_TempError.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None), new[] { "LINE1", "LINE2", string.Empty });
+            CollectionAssert.AreEqual(_TempError.ToString().Split(new[]
+                {
+                    Environment.NewLine
+                }, StringSplitOptions.None), new[]
+                    {
+                        "LINE1", "LINE2", string.Empty
+                    });
         }
 
         [Test]
@@ -89,7 +95,13 @@ namespace Opt.Tests
             writer.WriteLine("LINE1");
             writer.WriteLine("LINE2");
 
-            CollectionAssert.AreEqual(_TempOut.ToString().Split(new[] { Environment.NewLine }, StringSplitOptions.None), new[] { "LINE1", "LINE2", string.Empty });
+            CollectionAssert.AreEqual(_TempOut.ToString().Split(new[]
+                {
+                    Environment.NewLine
+                }, StringSplitOptions.None), new[]
+                    {
+                        "LINE1", "LINE2", string.Empty
+                    });
         }
 
         [Test]
