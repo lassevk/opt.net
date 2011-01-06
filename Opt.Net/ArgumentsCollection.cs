@@ -12,7 +12,16 @@ namespace Opt
     /// </summary>
     public class ArgumentsCollection : IEnumerable<string>
     {
+        /// <summary>
+        /// This is the backing field for the input to this <see cref="ArgumentsCollection"/>
+        /// </summary>
         private readonly IEnumerable<string> _Arguments;
+
+        /// <summary>
+        /// This field is used to track which response files has already been processed, or
+        /// is currently being processed, to detect cycles or repeated use of the same
+        /// response files.
+        /// </summary>
         private readonly HashSet<string> _ProcessedResponseFiles = new HashSet<string>();
 
         /// <summary>
@@ -58,6 +67,12 @@ namespace Opt
             }
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns>
+        /// An <see cref="T:System.Collections.IEnumerator"/> object that can be used to iterate through the collection.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -65,9 +80,19 @@ namespace Opt
 
         #endregion
 
+        /// <summary>
+        /// Processes a response file by reading it one line at a time and producing the lines as
+        /// separate arguments/options.
+        /// </summary>
+        /// <param name="fileName">
+        /// The full path to and name of the response file to process.
+        /// </param>
+        /// <returns>
+        /// A collection of strings read in from the response file.
+        /// </returns>
         private IEnumerable<string> ProcessResponseFile(string fileName)
         {
-            Debug.Assert(!StringEx.IsNullOrWhiteSpace(fileName));
+            Debug.Assert(!StringEx.IsNullOrWhiteSpace(fileName), "fileName cannot be null or empty in call to ProcessResponseFile");
 
             fileName = Path.GetFullPath(fileName);
             if (_ProcessedResponseFiles.Contains(fileName))

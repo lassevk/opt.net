@@ -9,7 +9,14 @@ namespace Opt
     /// </summary>
     public abstract class BaseOptionAttribute : BasePropertyAttribute
     {
+        /// <summary>
+        /// This is the backing field for the <see cref="Option"/> property.
+        /// </summary>
         private readonly string _Option;
+
+        /// <summary>
+        /// This is the backing field for the <see cref="ParameterName"/> property.
+        /// </summary>
         private readonly string _ParameterName;
 
         /// <summary>

@@ -20,6 +20,7 @@ namespace Opt.Tests
                 {
                     return _DefaultFalseProperty;
                 }
+
                 set
                 {
                     DefaultFalsePropertyWasSet = true;
@@ -35,6 +36,7 @@ namespace Opt.Tests
                 {
                     return _DefaultTrueProperty;
                 }
+
                 set
                 {
                     DefaultTruePropertyWasSet = true;

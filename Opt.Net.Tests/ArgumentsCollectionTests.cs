@@ -78,8 +78,8 @@ namespace Opt.Tests
         [Test]
         public void Enumerate_WithNullElements_ReturnsOriginalInputMinusNullElements()
         {
-            IEnumerable<string> input = new[] { "1", "2", null, "3", "A", null, "B", "C", "", null };
-            IEnumerable<string> expected = new[] { "1", "2", "3", "A", "B", "C", "" };
+            IEnumerable<string> input = new[] { "1", "2", null, "3", "A", null, "B", "C", string.Empty, null };
+            IEnumerable<string> expected = new[] { "1", "2", "3", "A", "B", "C", string.Empty };
 
             string[] output = new ArgumentsCollection(input).ToArray();
 
@@ -103,7 +103,7 @@ namespace Opt.Tests
         [Test]
         public void Enumerate_WithSimpleArgumentsInput_ReturnsOriginalInput()
         {
-            IEnumerable<string> arguments = new[] { "1", "2", "3", "A", "B", "C", "" };
+            IEnumerable<string> arguments = new[] { "1", "2", "3", "A", "B", "C", string.Empty };
 
             string[] output = new ArgumentsCollection(arguments).ToArray();
 
@@ -113,7 +113,7 @@ namespace Opt.Tests
         [Test]
         public void NonGenericEnumerate_WithSimpleArgumentsInput_ReturnsOriginalInput()
         {
-            IEnumerable<string> arguments = new[] { "1", "2", "3", "A", "B", "C", "" };
+            IEnumerable<string> arguments = new[] { "1", "2", "3", "A", "B", "C", string.Empty };
 
             var collection = new ArgumentsCollection(arguments);
             var enumerable = collection as IEnumerable;

@@ -13,8 +13,22 @@ namespace Opt
     /// </summary>
     public class PropertyMap
     {
+        /// <summary>
+        /// This is the backing field for the <see cref="ContainerType"/> property.
+        /// </summary>
         private readonly Type _ContainerType;
+
+        /// <summary>
+        /// This field holds a map of all the options that the map holds, along with
+        /// information about which property and attribute declared them.
+        /// </summary>
         private readonly Dictionary<string, KeyValuePair<PropertyInfo, BaseOptionAttribute>> _Properties = new Dictionary<string, KeyValuePair<PropertyInfo, BaseOptionAttribute>>();
+
+        /// <summary>
+        /// This field holds the <see cref="PropertyInfo"/> object for the property on
+        /// the container object that will get all the leftover arguments, or <c>null</c>
+        /// if no such property has been declared.
+        /// </summary>
         private PropertyInfo _ArgumentsProperty;
 
         /// <summary>
@@ -37,7 +51,7 @@ namespace Opt
         }
 
         /// <summary>
-        /// The type of object this <see cref="PropertyMap"/> handles.
+        /// Gets the type of object this <see cref="PropertyMap"/> handles.
         /// </summary>
         public Type ContainerType
         {
@@ -47,9 +61,12 @@ namespace Opt
             }
         }
 
+        /// <summary>
+        /// Discover all the mappable properties from the container type.
+        /// </summary>
         private void DiscoverMappableProperties()
         {
-            //List<Tuple<PropertyInfo, ArgumentAttribute>> argumentProperties = new List<Tuple<PropertyInfo, ArgumentAttribute>>();
+            // List<Tuple<PropertyInfo, ArgumentAttribute>> argumentProperties = new List<Tuple<PropertyInfo, ArgumentAttribute>>();
             foreach (PropertyInfo property in _ContainerType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 if (!property.IsDefined(typeof(BasePropertyAttribute), true))
@@ -63,8 +80,10 @@ namespace Opt
 
                     if (attr.GetType() == typeof(ArgumentsAttribute))
                         _ArgumentsProperty = property;
-                        //else if (attr == typeof(ArgumentAttribute))
-                        //    argumentProperties.Add(property);
+                        /*
+                    else if (attr == typeof(ArgumentAttribute))
+                        argumentProperties.Add(property);
+                    */
                     else
                     {
                         var option = attr as BaseOptionAttribute;
@@ -135,6 +154,7 @@ namespace Opt
                         option = argument.Substring(0, 2);
                         value = argument.Substring(2);
                     }
+
                     KeyValuePair<PropertyInfo, BaseOptionAttribute> entry;
                     if (_Properties.TryGetValue(option, out entry))
                     {
@@ -162,10 +182,12 @@ namespace Opt
                     else
                         throw new InvalidOperationException("The container has a property that has the ArgumentsAttribute attribute, but this property returns a null collection reference, and is not writeable");
                 }
+
                 foreach (string leftover in leftovers)
                     argumentsProperty.Add(leftover);
                 return new string[0];
             }
+
             return leftovers.ToArray();
         }
     }

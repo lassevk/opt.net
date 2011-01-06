@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 
@@ -11,6 +12,9 @@ namespace Opt
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
     public sealed class BooleanOptionAttribute : BaseOptionAttribute
     {
+        /// <summary>
+        /// This is the backing field for the <see cref="PropertyValue"/> property.
+        /// </summary>
         private readonly bool _PropertyValue;
 
         /// <summary>
@@ -19,9 +23,9 @@ namespace Opt
         /// <param name="option">The option this <see cref="BooleanOptionAttribute"/> will handle. Must be prefixed with either two minus signs (for long
         /// options), or one minus sign (for short options.)</param>
         /// <exception cref="ArgumentException">
-        /// 	<para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
-        /// 	<para>- or -</para>
-        /// 	<para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
+        /// <para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
         /// </exception>
         /// <exception cref="ArgumentNullException"><paramref name="option"/> is <c>null</c> or empty.</exception>
         public BooleanOptionAttribute(string option)
@@ -40,9 +44,9 @@ namespace Opt
         /// property.
         /// </param>
         /// <exception cref="ArgumentException">
-        /// 	<para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
-        /// 	<para>- or -</para>
-        /// 	<para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
+        /// <para><paramref name="option"/> specifies a long option that is too short, must be at least 2 characters long (+ the two minus sign, totalling 4 characters in the string.)</para>
+        /// <para>- or -</para>
+        /// <para><paramref name="option"/> specifies a short option that is too long, must be only 1 character long (+ the one minus sign, totalling 2 characters in the string.)</para>
         /// </exception>
         /// <exception cref="ArgumentNullException"><paramref name="option"/> is <c>null</c> or empty.</exception>
         public BooleanOptionAttribute(string option, bool propertyValue)
@@ -52,13 +56,26 @@ namespace Opt
         }
 
         /// <summary>
-        /// The value to set the target property to.
+        /// Gets the value to set the target property to.
         /// </summary>
+        [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1623:PropertySummaryDocumentationMustMatchAccessors", Justification = "This property value will be used both with true and false, so it does not 'indicate whether' to do something, it indicates the actual value to store into the property")]
         public bool PropertyValue
         {
             get
             {
                 return _PropertyValue;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return false;
             }
         }
 
@@ -155,18 +172,6 @@ namespace Opt
 
                 default:
                     throw new InvalidOperationException("Unable to assign boolean value to property for option, unknown property value");
-            }
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the property type requires an argument, either as part
-        /// of the option, or following the option.
-        /// </summary>
-        public override bool RequiresArgument
-        {
-            get
-            {
-                return false;
             }
         }
     }

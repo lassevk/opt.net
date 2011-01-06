@@ -13,20 +13,20 @@ namespace Opt.Tests
         [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
         public class UnknownAttribute : BasePropertyAttribute
         {
-            public override void ValidateUsage(Type containerType)
-            {
-            }
-
-            public override void ValidateUsage(PropertyInfo propertyInfo)
-            {
-            }
-
             public override bool RequiresArgument
             {
                 get
                 {
                     return false;
                 }
+            }
+
+            public override void ValidateUsage(Type containerType)
+            {
+            }
+
+            public override void ValidateUsage(PropertyInfo propertyInfo)
+            {
             }
         }
 
