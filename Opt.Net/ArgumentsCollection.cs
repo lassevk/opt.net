@@ -90,6 +90,9 @@ namespace Opt
         /// <returns>
         /// A collection of strings read in from the response file.
         /// </returns>
+        /// <exception cref="InvalidOperationException">
+        /// <para>The same response file has been specified more than once, either as a repeated specification, or as a cycle.</para>
+        /// </exception>
         private IEnumerable<string> ProcessResponseFile(string fileName)
         {
             Debug.Assert(!StringEx.IsNullOrWhiteSpace(fileName), "fileName cannot be null or empty in call to ProcessResponseFile");

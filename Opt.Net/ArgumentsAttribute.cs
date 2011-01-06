@@ -37,6 +37,10 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="containerType"/> is <c>null</c>.</para>
         /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <para>More than one property in the container type has the <see cref="ArgumentsAttribute"/> attribute applied to it.
+        /// However, this attribute follows the "Highlander Pattern", aka "There can be only one".</para>
+        /// </exception>
         public override void ValidateUsage(Type containerType)
         {
             if (containerType == null)
@@ -62,6 +66,9 @@ namespace Opt
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="propertyInfo"/> is <c>null</c>.</para>
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// <para>The <see cref="ArgumentsAttribute"/> attribute has been applied to a property that is not of type <see cref="Collection{T}"/> where T is of type <see cref="String"/>.</para>
         /// </exception>
         public override void ValidateUsage(PropertyInfo propertyInfo)
         {
