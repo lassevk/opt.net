@@ -170,9 +170,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[]
-                {
-                    "--prop1"
-                };
+            {
+                "--prop1"
+            };
 
             string[] leftovers = map.Map(arguments, container);
 
@@ -187,9 +187,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[]
-                {
-                    "-t-"
-                };
+            {
+                "-t-"
+            };
 
             string[] leftovers = map.Map(arguments, container);
 
@@ -204,9 +204,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[]
-                {
-                    "-t+"
-                };
+            {
+                "-t+"
+            };
 
             string[] leftovers = map.Map(arguments, container);
 
@@ -221,9 +221,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
             var container = new Container();
             var arguments = new[]
-                {
-                    "-t"
-                };
+            {
+                "-t"
+            };
 
             string[] leftovers = map.Map(arguments, container);
 

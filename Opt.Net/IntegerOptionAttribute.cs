@@ -18,9 +18,9 @@ namespace Opt
         /// attribute can handle, and is the backing field for the <see cref="SupportedTypes"/> property.
         /// </summary>
         private static readonly Type[] _SupportedTypes = new[]
-            {
-                typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?),
-            };
+        {
+            typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?),
+        };
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntegerOptionAttribute"/> class.

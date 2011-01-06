@@ -24,19 +24,19 @@ namespace Opt.Tests
             PropertyBuilder property = type.DefineProperty("Value", PropertyAttributes.None, propertyType, null);
 
             var attr = new CustomAttributeBuilder(attributeType.GetConstructor(new[]
-                {
-                    typeof(string), typeof(string)
-                }), new[]
-                    {
-                        "-p", "VALUE"
-                    });
+            {
+                typeof(string), typeof(string)
+            }), new[]
+            {
+                "-p", "VALUE"
+            });
             property.SetCustomAttribute(attr);
 
             MethodBuilder getMethod = type.DefineMethod("get_Value", MethodAttributes.Public, propertyType, new Type[0]);
             MethodBuilder setMethod = type.DefineMethod("set_Value", MethodAttributes.Public, typeof(void), new[]
-                {
-                    propertyType
-                });
+            {
+                propertyType
+            });
             property.SetGetMethod(getMethod);
             property.SetSetMethod(setMethod);
 

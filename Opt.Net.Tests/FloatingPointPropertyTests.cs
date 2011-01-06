@@ -88,9 +88,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
 
             string[] leftovers = map.Map(new[]
-                {
-                    argument
-                }, container);
+            {
+                argument
+            }, container);
 
             Assert.That(container.DoubleProperty, Is.EqualTo(expected));
             Assert.That(container.DoublePropertyWasSet, Is.True);
@@ -107,9 +107,9 @@ namespace Opt.Tests
             var map = new PropertyMap(typeof(Container));
 
             string[] leftovers = map.Map(new[]
-                {
-                    option, argument
-                }, container);
+            {
+                option, argument
+            }, container);
 
             Assert.That(container.DoubleProperty, Is.EqualTo(expected));
             Assert.That(container.DoublePropertyWasSet, Is.True);
