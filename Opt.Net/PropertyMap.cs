@@ -227,6 +227,78 @@ namespace Opt
         }
 
         /// <summary>
+        /// Extracts the command from the given arguments, and returns its position, in order to be able
+        /// to remove the command from the argument stream before parsing the arguments for the
+        /// given command object. The command is per definition the first non-option argument.
+        /// </summary>
+        /// <param name="arguments">
+        /// The arguments to parse.
+        /// </param>
+        /// <param name="indexOfCommand">
+        /// The index of the command found, or -1 if no command was found.
+        /// </param>
+        /// <returns>
+        /// The command name, or <see cref="string.Empty"/> if no command was found.
+        /// </returns>
+        public string ExtractCommand(IEnumerable<string> arguments, out int indexOfCommand)
+        {
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
+            indexOfCommand = -1;
+            using (IEnumerator<string> argumentEnumerable = arguments.GetEnumerator())
+            {
+                while (argumentEnumerable.MoveNext())
+                {
+                    indexOfCommand++;
+                    string argument = argumentEnumerable.Current;
+
+                    if ((argument.StartsWith("--", StringComparison.Ordinal) || argument.StartsWith("-", StringComparison.Ordinal)) && !argument.StartsWith("---", StringComparison.Ordinal))
+                    {
+                        string option;
+                        string value;
+
+                        SplitOptionAndArgument(argument, out option, out value);
+
+                        KeyValuePair<PropertyInfo, BaseOptionAttribute> entry;
+                        if (_Properties.TryGetValue(option, out entry))
+                        {
+                            if (entry.Value.RequiresArgument)
+                            {
+                                if (StringEx.IsNullOrWhiteSpace(value))
+                                {
+                                    if (!argumentEnumerable.MoveNext())
+                                        throw new OptionSyntaxException(string.Format(CultureInfo.InvariantCulture, "option {0} requires an argument but none was provided", option));
+                                    indexOfCommand++;
+
+                                    if (argumentEnumerable.Current.StartsWith("-"))
+                                    {
+                                        string possibleOption;
+                                        string possibleArgument;
+                                        SplitOptionAndArgument(argumentEnumerable.Current, out possibleOption, out possibleArgument);
+                                        if (_Properties.ContainsKey(possibleOption))
+                                            throw new OptionSyntaxException(string.Format(CultureInfo.InvariantCulture, "option {0} requires an argument but none was provided", option));
+                                    }
+
+                                    value = argumentEnumerable.Current;
+                                }
+                            }
+                        }
+                        else
+                            throw new UnknownOptionException(string.Format(CultureInfo.InvariantCulture, "Unknown option {0}", argument));
+                    }
+                    else if (argument.StartsWith("-", StringComparison.Ordinal))
+                        throw new OptionSyntaxException("Argument starts with three or more minus signs, this is not legal");
+                    else
+                        return argument;
+                }
+            }
+
+            indexOfCommand = -1;
+            return string.Empty;
+        }
+
+        /// <summary>
         /// Splits the option and argument into two separate strings.
         /// </summary>
         /// <param name="argument">
