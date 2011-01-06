@@ -227,5 +227,91 @@ namespace Opt
                     yield return line;
             }
         }
+
+        /// <summary>
+        /// Extracts the command name from the arguments, finds the command handler class, applies all
+        /// the options onto the command, and executes it.
+        /// </summary>
+        /// <param name="arguments">
+        /// The arguments to parse.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="arguments"/> is <c>null</c>.</para>
+        /// </exception>
+        public static void ExecuteCommand(IEnumerable<string> arguments)
+        {
+            ExecuteCommand(null, arguments);
+        }
+
+        /// <summary>
+        /// Extracts the command name from the arguments, finds the command handler class, applies all
+        /// the options onto the command, and executes it.
+        /// </summary>
+        /// <param name="commonType">
+        /// The <see cref="Type"/> object of the base class for the commands, used to extract
+        /// common options in order to find the command, or <c>null</c> if there is
+        /// no such base class, in which case the command must be the very first argument.
+        /// </param>
+        /// <param name="arguments">
+        /// The arguments to parse.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="arguments"/> is <c>null</c>.</para>
+        /// </exception>
+        public static void ExecuteCommand(Type commonType, IEnumerable<string> arguments)
+        {
+            if (arguments == null)
+                throw new ArgumentNullException("arguments");
+
+            string command;
+            int index;
+
+            if (commonType != null)
+            {
+                var commonMap = new PropertyMap(commonType);
+                command = commonMap.ExtractCommand(arguments, out index);
+                if (command == string.Empty)
+                    throw new InvalidOperationException("No command specified"); // TODO: Replace with better exception
+            }
+            else
+            {
+                command = arguments.FirstOrDefault();
+                index = 0;
+                if (command.StartsWith("-"))
+                    throw new InvalidOperationException("No command specified"); // TODO: Replace with better exception
+            }
+
+            var commandType = CommandAttribute.LocateCommand(command);
+            if (commandType == null)
+                throw new InvalidOperationException("No command with the name '" + command + "'"); // TODO: Replace with better exception
+
+            var commandInstance = Activator.CreateInstance(commandType);
+            IEnumerable<string> argumentsExceptCommand;
+            if (index > 0)
+                argumentsExceptCommand = arguments.Take(index).Concat(arguments.Skip(index + 1)).ToArray();
+            else
+                argumentsExceptCommand = arguments.Skip(1).ToArray();
+
+            var leftOvers = Parse(commandInstance, argumentsExceptCommand);
+
+            ((ICommand)commandInstance).Execute(leftOvers);
+        }
+
+        /// <summary>
+        /// Extracts the command name from the arguments, finds the command handler class, applies all
+        /// the options onto the command, and executes it.
+        /// </summary>
+        /// <typeparam name="TCommon"></typeparam>
+        /// <param name="arguments">
+        /// The arguments to parse.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="arguments"/> is <c>null</c>.</para>
+        /// </exception>
+        public static void ExecuteCommand<TCommon>(IEnumerable<string> arguments)
+            where TCommon : ICommand
+        {
+            ExecuteCommand(typeof(TCommon), arguments);
+        }
     }
 }
