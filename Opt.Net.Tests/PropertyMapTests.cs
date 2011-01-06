@@ -20,6 +20,14 @@ namespace Opt.Tests
             public override void ValidateUsage(PropertyInfo propertyInfo)
             {
             }
+
+            public override bool RequiresArgument
+            {
+                get
+                {
+                    return false;
+                }
+            }
         }
 
         public class ContainerWithUnknownAttribute
