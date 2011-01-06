@@ -127,5 +127,17 @@ namespace Opt
             object integerValue = Convert.ChangeType(value, integerType, CultureInfo.InvariantCulture);
             propertyInfo.SetValue(container, integerValue, null);
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

@@ -157,5 +157,17 @@ namespace Opt
                     throw new InvalidOperationException("Unable to assign boolean value to property for option, unknown property value");
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }

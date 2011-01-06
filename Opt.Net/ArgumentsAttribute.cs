@@ -61,5 +61,17 @@ namespace Opt
             if (propertyInfo.PropertyType != typeof(Collection<string>))
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is applied to a property that is not of type Collection<string>, but of {0}", propertyInfo.PropertyType));
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the property type requires an argument, either as part
+        /// of the option, or following the option.
+        /// </summary>
+        public override bool RequiresArgument
+        {
+            get
+            {
+                return false;
+            }
+        }
     }
 }

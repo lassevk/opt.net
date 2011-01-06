@@ -27,6 +27,14 @@ namespace Opt.Tests
             public override void AssignValueToProperty(object container, PropertyInfo propertyInfo, string value)
             {
             }
+
+            public override bool RequiresArgument
+            {
+                get
+                {
+                    return false;
+                }
+            }
         }
 
         public IEnumerable<Type> PropertyTypes
