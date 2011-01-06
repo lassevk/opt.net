@@ -156,15 +156,7 @@ namespace Opt
                         string option;
                         string value;
 
-                        if (argument.StartsWith("--", StringComparison.Ordinal))
-                        {
-                            SplitOptionAndArgument(argument, out option, out value);
-                        }
-                        else
-                        {
-                            option = argument.Substring(0, 2);
-                            value = argument.Substring(2);
-                        }
+                        SplitOptionAndArgument(argument, out option, out value);
 
                         KeyValuePair<PropertyInfo, BaseOptionAttribute> entry;
                         if (_Properties.TryGetValue(option, out entry))
@@ -188,6 +180,7 @@ namespace Opt
                                     value = argumentEnumerable.Current;
                                 }
                             }
+
                             entry.Value.AssignValueToProperty(container, entry.Key, value);
                         }
                         else
@@ -222,18 +215,50 @@ namespace Opt
             return leftovers.ToArray();
         }
 
+        /// <summary>
+        /// Splits the option and argument into two separate strings.
+        /// </summary>
+        /// <param name="argument">
+        /// The input argument to split.
+        /// </param>
+        /// <param name="option">
+        /// The option part of the <paramref name="argument"/>.
+        /// </param>
+        /// <param name="value">
+        /// The value part of the <paramref name="argument"/>, or <see cref="string.Empty"/> if
+        /// there is no value.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <para><paramref name="argument"/> is <c>null</c> or empty.</para>
+        /// </exception>
         private void SplitOptionAndArgument(string argument, out string option, out string value)
         {
-            int valueIndex = argument.IndexOf('=');
-            if (valueIndex < 0)
+            if (StringEx.IsNullOrWhiteSpace(argument))
+                throw new ArgumentNullException("argument");
+
+            if (argument.StartsWith("--", StringComparison.Ordinal))
             {
-                option = argument;
-                value = string.Empty;
+                int valueIndex = argument.IndexOf('=');
+                if (valueIndex < 0)
+                    valueIndex = argument.IndexOf(':');
+
+                if (valueIndex < 0)
+                {
+                    option = argument;
+                    value = string.Empty;
+                }
+                else
+                {
+                    option = argument.Substring(0, valueIndex).Trim();
+                    value = argument.Substring(valueIndex + 1);
+                }
             }
             else
             {
-                option = argument.Substring(0, valueIndex).Trim();
-                value = argument.Substring(valueIndex + 1);
+                option = argument.Substring(0, 2);
+                value = argument.Substring(2);
+                if (value.StartsWith("=") || value.StartsWith(":"))
+                    value = value.Substring(1);
             }
         }
     }
