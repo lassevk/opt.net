@@ -11,6 +11,9 @@ namespace Opt
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = true)]
     public sealed class CommandAttribute : Attribute
     {
+        /// <summary>
+        /// This is the backing field for the <see cref="Name"/> property.
+        /// </summary>
         private string _Name;
 
         /// <summary>
