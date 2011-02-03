@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Opt
 {
@@ -132,17 +133,73 @@ namespace Opt
                 throw new ArgumentNullException("containerType");
 
             var map = new PropertyMap(containerType);
-            if (map.MappedProperties.Any())
+            
+            // Command line help
+            var parts = new List<string>();
+            int argumentIndex = 1;
+            foreach (var prop in map.ArgumentProperties)
             {
-                yield return Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location).ToLower() + " [OPTION]...";
-                yield return string.Empty;
+                var attr = (ArgumentAttribute)prop.GetCustomAttributes(typeof(ArgumentAttribute), true)[0];
+                var name = attr.Name;
+                if (StringEx.IsNullOrWhiteSpace(name))
+                    name = "ARG" + argumentIndex;
+                if (attr.Optional)
+                    parts.Add("[" + name + "]");
+                else
+                    parts.Add(name);
+                argumentIndex++;
             }
+
+            if (map.ArgumentsProperty != null)
+                parts.Add("[ARG]...");
+
+            if (map.MappedProperties.Any())
+                parts.Add("[OPTIONS]...");
+
+            yield return Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().Location).ToLower() + " " + string.Join(" ", parts.ToArray());
+            yield return string.Empty;
 
             string[] containerHelp = GetHelpTextFor(containerType).ToArray();
             if (containerHelp.Length > 0)
             {
                 foreach (string line in containerHelp)
                     yield return line;
+                yield return string.Empty;
+            }
+
+            var argumentsWithDescription =
+                (from entry in map.ArgumentProperties.Select((property, index) => new { property, index })
+                 let descriptionAttr = entry.property.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute
+                 where descriptionAttr != null
+                 let attr = (ArgumentAttribute)entry.property.GetCustomAttributes(typeof(ArgumentAttribute), true)[0]
+                 let argName = !StringEx.IsNullOrWhiteSpace(attr.Name) ? attr.Name : ("ARG" + (entry.index + 1))
+                 select new { argName, text = StringEx.SplitLines(descriptionAttr.Description).ToArray() }).ToArray();
+            if (argumentsWithDescription.Length > 0)
+            {
+                yield return "arguments:";
+                yield return string.Empty;
+
+                int maxLongLength = argumentsWithDescription.Max(p => p.argName.Length);
+
+                foreach (var arg in argumentsWithDescription)
+                {
+                    int lines = arg.text.Length;
+                    if (arg.argName.Length > 20)
+                    {
+                        yield return " " + arg.argName;
+                        var indent = new string(' ', maxLongLength + 3);
+                        foreach (string line in arg.text)
+                            yield return indent + line;
+                    }
+                    else
+                    {
+                        yield return " " + arg.argName.PadRight(maxLongLength, ' ') + "  " + arg.text[0];
+                        var indent = new string(' ', maxLongLength + 3);
+                        foreach (string line in arg.text.Skip(1))
+                            yield return indent + line;
+                    }
+                }
+
                 yield return string.Empty;
             }
 
@@ -153,12 +210,14 @@ namespace Opt
                                           {
                                               prop = propMap.Key, option = propMap.Value.Option, parameter = propMap.Value.ParameterName, text
                                           }
+
                                           into entry
                                           group entry by entry.prop into g
                                           select new
                                           {
                                               options = g.Select(e => e.option).OrderBy(o => o.Length).ToArray(), g.First().text, g.First().parameter
                                           }
+
                                           into entry2
                                           orderby (entry2.options.First() == "-h" || entry2.options.First() == "--help") ? 0 : 1, entry2.options.First()
                                           let shortOption = entry2.options.Where(o => o.Length == 2).FirstOrDefault() ?? string.Empty
@@ -220,12 +279,8 @@ namespace Opt
             string text = attrs[0].Description;
            
             // TODO: Handle resource-based text
-            using (var reader = new StringReader(text))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                    yield return line;
-            }
+            foreach (var line in StringEx.SplitLines(text))
+                yield return line;
         }
 
         /// <summary>
@@ -301,7 +356,9 @@ namespace Opt
         /// Extracts the command name from the arguments, finds the command handler class, applies all
         /// the options onto the command, and executes it.
         /// </summary>
-        /// <typeparam name="TCommon"></typeparam>
+        /// <typeparam name="TCommon">
+        /// The type of the common options class.
+        /// </typeparam>
         /// <param name="arguments">
         /// The arguments to parse.
         /// </param>

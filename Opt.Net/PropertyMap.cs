@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace Opt
 {
@@ -23,6 +24,12 @@ namespace Opt
         /// information about which property and attribute declared them.
         /// </summary>
         private readonly Dictionary<string, KeyValuePair<PropertyInfo, BaseOptionAttribute>> _Properties = new Dictionary<string, KeyValuePair<PropertyInfo, BaseOptionAttribute>>();
+
+        /// <summary>
+        /// This field holds an ordered list of all properties attributed with the
+        /// <see cref="ArgumentAttribute"/>.
+        /// </summary>
+        private readonly List<PropertyInfo> _ArgumentProperties = new List<PropertyInfo>();
 
         /// <summary>
         /// This field holds the <see cref="PropertyInfo"/> object for the property on
@@ -59,13 +66,39 @@ namespace Opt
         }
 
         /// <summary>
-        /// Gets a collection
+        /// Gets a collection of <see cref="PropertyInfo"/> with <see cref="BaseOptionAttribute"/>
+        /// entries, for properties that are mapped.
         /// </summary>
         internal IEnumerable<KeyValuePair<PropertyInfo, BaseOptionAttribute>> MappedProperties
         {
             get
             {
                 return _Properties.Values;
+            }
+        }
+
+        /// <summary>
+        /// Gets an ordered collection of <see cref="PropertyInfo"/> objects for
+        /// properties tagged with the <see cref="ArgumentAttribute"/> attribute,
+        /// for positional arguments.
+        /// </summary>
+        internal IEnumerable<PropertyInfo> ArgumentProperties
+        {
+            get
+            {
+                return _ArgumentProperties;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PropertyInfo"/> for the property tagged with the
+        /// <see cref="ArgumentsAttribute"/> attribute, for leftover arguments.
+        /// </summary>
+        internal PropertyInfo ArgumentsProperty
+        {
+            get
+            {
+                return _ArgumentsProperty;
             }
         }
 
@@ -88,7 +121,8 @@ namespace Opt
         /// </exception>
         private void DiscoverMappableProperties()
         {
-            // List<Tuple<PropertyInfo, ArgumentAttribute>> argumentProperties = new List<Tuple<PropertyInfo, ArgumentAttribute>>();
+            var argumentProperties = new List<PropertyInfo>();
+
             foreach (PropertyInfo property in _ContainerType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 if (!property.IsDefined(typeof(BasePropertyAttribute), true))
@@ -102,10 +136,8 @@ namespace Opt
 
                     if (attr.GetType() == typeof(ArgumentsAttribute))
                         _ArgumentsProperty = property;
-                        /*
-                    else if (attr == typeof(ArgumentAttribute))
+                    else if (attr.GetType() == typeof(ArgumentAttribute))
                         argumentProperties.Add(property);
-                    */
                     else
                     {
                         var option = attr as BaseOptionAttribute;
@@ -116,6 +148,12 @@ namespace Opt
                     }
                 }
             }
+
+            _ArgumentProperties.AddRange(
+                from property in argumentProperties
+                let attr = (ArgumentAttribute)property.GetCustomAttributes(typeof(ArgumentAttribute), true)[0]
+                orderby attr.OrderIndex
+                select property);
         }
 
         /// <summary>
@@ -156,6 +194,7 @@ namespace Opt
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The given container was not the same type as the original type given to PropertyMap, this is an internal error (aka bug), original type was {0}, container type was {1}", _ContainerType, container.GetType()));
 
             var leftovers = new List<string>();
+            int argumentIndex = 0;
             using (IEnumerator<string> argumentEnumerable = arguments.GetEnumerator())
             {
                 while (argumentEnumerable.MoveNext())
@@ -199,6 +238,11 @@ namespace Opt
                     }
                     else if (argument.StartsWith("-", StringComparison.Ordinal))
                         throw new OptionSyntaxException("Argument starts with three or more minus signs, this is not legal");
+                    else if (argumentIndex < _ArgumentProperties.Count)
+                    {
+                        _ArgumentProperties[argumentIndex].SetValue(container, argument, null);
+                        argumentIndex++;
+                    }
                     else
                         leftovers.Add(argument);
                 }
