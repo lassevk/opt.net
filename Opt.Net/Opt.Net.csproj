@@ -49,7 +49,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Opt.Net.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\Lasse V. Karlsen.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -80,8 +80,8 @@
     <Compile Include="UnknownOptionException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Opt.Net.snk">
-      <Link>Opt.Net.snk</Link>
+    <None Include="..\Lasse V. Karlsen.snk">
+      <Link>Lasse V. Karlsen.snk</Link>
     </None>
     <None Include="Settings.StyleCop">
       <SubType>Designer</SubType>

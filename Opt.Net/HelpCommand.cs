@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -58,9 +60,7 @@ namespace Opt
         /// </summary>
         private void ShowGeneralHelp()
         {
-            var attr =
-                Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).
-                    FirstOrDefault() as AssemblyDescriptionAttribute;
+            var attr = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).FirstOrDefault() as AssemblyDescriptionAttribute;
             if (attr != null)
             {
                 Console.Out.WriteLine(attr.Description);
@@ -70,32 +70,23 @@ namespace Opt
             Console.Out.WriteLine("list of commands:");
             Console.Out.WriteLine();
 
-            var commands = (from commandType in CommandAttribute.LocateAllCommands()
-                from CommandAttribute commandAttribute in
-                    commandType.GetCustomAttributes(typeof(CommandAttribute), true)
-                let descriptionAttribute =
-                    commandType.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as
-                    DescriptionAttribute
-                select
-                    new
-                    {
-                        name = commandAttribute.Name,
-                        description =
-                    (descriptionAttribute != null) ? descriptionAttribute.Description : string.Empty
-                    }
-                    
-                into e
-                orderby e.name
-                select e).
-                ToArray();
+            var commands =
+                (from commandType in CommandAttribute.LocateAllCommands()
+                 from CommandAttribute commandAttribute in commandType.GetCustomAttributes(typeof(CommandAttribute), true)
+                 let descriptionAttribute = commandType.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute
+                 select new
+                 {
+                     name = commandAttribute.Name,
+                     description = (descriptionAttribute != null) ? descriptionAttribute.Description : string.Empty
+                 }
+                 into e
+                 orderby e.name
+                 select e).ToArray();
 
             int maxCommandLength = commands.Max(e => e.name.Length);
 
             foreach (var command in commands)
-            {
-                Console.Out.WriteLine(" " +
-                                      (command.name.PadRight(maxCommandLength, ' ') + "  " + command.description).Trim());
-            }
+                Console.Out.WriteLine(" " + (command.name.PadRight(maxCommandLength, ' ') + "  " + command.description).Trim());
         }
     }
 }

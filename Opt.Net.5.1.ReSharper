@@ -6,6 +6,7 @@
     <CSharp>
       <FormatSettings>
         <ALIGN_MULTILINE_ARGUMENT>False</ALIGN_MULTILINE_ARGUMENT>
+        <ALIGN_MULTILINE_ARRAY_AND_OBJECT_INITIALIZER>False</ALIGN_MULTILINE_ARRAY_AND_OBJECT_INITIALIZER>
         <ALIGN_MULTILINE_PARAMETER>False</ALIGN_MULTILINE_PARAMETER>
         <ANONYMOUS_METHOD_DECLARATION_BRACES>NEXT_LINE</ANONYMOUS_METHOD_DECLARATION_BRACES>
         <INDENT_ANONYMOUS_METHOD_BLOCK>False</INDENT_ANONYMOUS_METHOD_BLOCK>
@@ -13,7 +14,6 @@
         <INITIALIZER_BRACES>NEXT_LINE</INITIALIZER_BRACES>
         <KEEP_BLANK_LINES_IN_CODE>1</KEEP_BLANK_LINES_IN_CODE>
         <KEEP_BLANK_LINES_IN_DECLARATIONS>1</KEEP_BLANK_LINES_IN_DECLARATIONS>
-        <KEEP_USER_LINEBREAKS>False</KEEP_USER_LINEBREAKS>
         <MODIFIERS_ORDER IsNull="False">
           <Item>public</Item>
           <Item>protected</Item>
@@ -35,18 +35,33 @@
         <PLACE_FIELD_ATTRIBUTE_ON_SAME_LINE>False</PLACE_FIELD_ATTRIBUTE_ON_SAME_LINE>
         <PLACE_SIMPLE_ACCESSOR_ON_SINGLE_LINE>False</PLACE_SIMPLE_ACCESSOR_ON_SINGLE_LINE>
         <PLACE_SIMPLE_ANONYMOUSMETHOD_ON_SINGLE_LINE>False</PLACE_SIMPLE_ANONYMOUSMETHOD_ON_SINGLE_LINE>
-        <PLACE_SIMPLE_INITIALIZER_ON_SINGLE_LINE>False</PLACE_SIMPLE_INITIALIZER_ON_SINGLE_LINE>
         <PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>False</PLACE_SIMPLE_LINQ_ON_SINGLE_LINE>
         <PLACE_TYPE_CONSTRAINTS_ON_SAME_LINE>False</PLACE_TYPE_CONSTRAINTS_ON_SAME_LINE>
-        <SIMPLE_EMBEDDED_STATEMENT_STYLE>LINE_BREAK</SIMPLE_EMBEDDED_STATEMENT_STYLE>
         <SPACE_AFTER_TYPECAST_PARENTHESES>False</SPACE_AFTER_TYPECAST_PARENTHESES>
+        <SPACE_AROUND_MULTIPLICATIVE_OP>True</SPACE_AROUND_MULTIPLICATIVE_OP>
         <SPACE_BEFORE_SIZEOF_PARENTHESES>False</SPACE_BEFORE_SIZEOF_PARENTHESES>
         <SPACE_BEFORE_TYPEOF_PARENTHESES>False</SPACE_BEFORE_TYPEOF_PARENTHESES>
         <SPACE_WITHIN_SINGLE_LINE_ARRAY_INITIALIZER_BRACES>True</SPACE_WITHIN_SINGLE_LINE_ARRAY_INITIALIZER_BRACES>
         <STICK_COMMENT>False</STICK_COMMENT>
+        <WRAP_AFTER_DECLARATION_LPAR>True</WRAP_AFTER_DECLARATION_LPAR>
+        <WRAP_AFTER_INVOCATION_LPAR>True</WRAP_AFTER_INVOCATION_LPAR>
+        <WRAP_LIMIT>160</WRAP_LIMIT>
         <WRAP_LINES>False</WRAP_LINES>
       </FormatSettings>
-      <UsingsSettings />
+      <UsingsSettings>
+        <KeepImports IsNull="False">
+          <Item>System</Item>
+          <Item>System.Diagnostics</Item>
+          <Item>System.Collections.Generic</Item>
+          <Item>System.Linq</Item>
+        </KeepImports>
+        <MandatoryImports IsNull="False">
+          <Item>System</Item>
+          <Item>System.Diagnostics</Item>
+          <Item>System.Collections.Generic</Item>
+          <Item>System.Linq</Item>
+        </MandatoryImports>
+      </UsingsSettings>
       <Naming2>
         <EventHandlerPatternLong>$object$_On$event$</EventHandlerPatternLong>
         <EventHandlerPatternShort>$event$Handler</EventHandlerPatternShort>
@@ -67,6 +82,12 @@
         <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
         <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
       </Naming2>
+      <CustomMemberReorderingPatterns><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+
+<Patterns xmlns="urn:shemas-jetbrains-com:member-reordering-patterns">
+  
+</Patterns>
+]]></CustomMemberReorderingPatterns>
     </CSharp>
     <VB>
       <FormatSettings />
@@ -116,7 +137,7 @@
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
     <LiveTemplates>
-      <Template uid="b9a2102c-d5a7-461c-b9d6-06fdde0694c5" shortcut="nex" description="Throw ArgumentNullException if parameter is null." text="if ($param$ == null)&#xD;&#xA;    throw new ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="b19d89c6-b31f-41ba-a121-b45e7f977942" shortcut="nex" description="Throw an ArgumentNullException if the given argument is null." text="if ($param$ == null)&#xD;&#xA;    throw new System.ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
         <Context>
           <CSharpContext context="Statement" minimumLanguageVersion="2.0" />
         </Context>
@@ -126,24 +147,13 @@
         </Variables>
         <CustomProperties />
       </Template>
-      <Template uid="5a5aeddf-0872-413c-b1e1-e8fc49bb495a" shortcut="nsex" description="Throw ArgumentNullException if string parameter is null, empty, or contains only whitespace." text="if (StringEx.IsNullOrWhiteSpace($param$))&#xD;&#xA;    throw new ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
+      <Template uid="3eaf4fe4-9efd-4ae6-a05a-090b00ecd30c" shortcut="nsex" description="Throw an ArgumentNullException if the given parameter is null, string.Empty, or only contains whitespace." text="if (StringEx.IsNullOrWhiteSpace($param$))&#xD;&#xA;    throw new System.ArgumentNullException(&quot;$param$&quot;);" reformat="True" shortenQualifiedReferences="True">
         <Context>
           <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
         </Context>
         <Categories />
         <Variables>
           <Variable name="param" expression="parameterOfType(&quot;System.String&quot;)" initialRange="0" />
-        </Variables>
-        <CustomProperties />
-      </Template>
-      <Template uid="9efc781d-8d71-4af4-bb42-a498b260c481" shortcut="exception" description="Exception class" text="/// &lt;summary&gt;&#xD;&#xA;/// $documentation$&#xD;&#xA;/// &lt;/summary&gt;&#xD;&#xA;[Serializable]&#xD;&#xA;public class $name$ : Exception&#xD;&#xA;{&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// Initializes a new instance of the &lt;see cref=&quot;$name$&quot;/&gt; class with a specified error message.&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    /// &lt;param name=&quot;message&quot;&gt;&#xD;&#xA;    /// The message detailing the exceptional condition.&#xD;&#xA;    /// &lt;/param&gt;&#xD;&#xA;    public $name$(string message)&#xD;&#xA;        : base(message)&#xD;&#xA;    {&#xD;&#xA;        // Do nothing here&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// Initializes a new instance of the &lt;see cref=&quot;$name$&quot;/&gt; class with a specified error message and&#xD;&#xA;    /// a reference to the inner exception that is the cause of this exception.&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    /// &lt;param name=&quot;message&quot;&gt;The message detailing the exceptional condition.&lt;/param&gt;&#xD;&#xA;    /// &lt;param name=&quot;innerException&quot;&gt;The inner exception.&lt;/param&gt;&#xD;&#xA;    public $name$(string message, Exception innerException)&#xD;&#xA;        : base(message, innerException)&#xD;&#xA;    {&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// Initializes a new instance of the &lt;see cref=&quot;$name$&quot;/&gt; class with serialized data.&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    /// &lt;param name=&quot;info&quot;&gt;&#xD;&#xA;    /// The &lt;see cref=&quot;SerializationInfo&quot;/&gt; that holds the serialized object data about the exception being thrown.&#xD;&#xA;    /// &lt;/param&gt;&#xD;&#xA;    /// &lt;param name=&quot;context&quot;&gt;&#xD;&#xA;    /// The &lt;see cref=&quot;StreamingContext&quot;/&gt; that contains contextual information about the source or destination.&#xD;&#xA;    /// &lt;/param&gt;&#xD;&#xA;    /// &lt;exception cref=&quot;ArgumentNullException&quot;&gt;&#xD;&#xA;    /// &lt;para&gt;The &lt;paramref name=&quot;info&quot;/&gt; parameter is null.&lt;/para&gt;&#xD;&#xA;    /// &lt;/exception&gt;&#xD;&#xA;    /// &lt;exception cref=&quot;SerializationException&quot;&gt;&#xD;&#xA;    /// &lt;para&gt;The class name is null or &lt;see cref=&quot;Exception.HResult&quot;/&gt; is zero (0).&lt;/para&gt;&#xD;&#xA;    /// &lt;/exception&gt;&#xD;&#xA;    protected $name$(SerializationInfo info, StreamingContext context)&#xD;&#xA;        : base(info, context)&#xD;&#xA;    {&#xD;&#xA;        // Do nothing here&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    /// &lt;summary&gt;&#xD;&#xA;    /// Sets the &lt;see cref=&quot;SerializationInfo&quot;/&gt; with information about the exception.&#xD;&#xA;    /// &lt;/summary&gt;&#xD;&#xA;    /// &lt;param name=&quot;info&quot;&gt;&#xD;&#xA;    /// The &lt;see cref=&quot;SerializationInfo&quot;/&gt; that holds the serialized object data about the exception being thrown.&#xD;&#xA;    /// &lt;/param&gt;&#xD;&#xA;    /// &lt;param name=&quot;context&quot;&gt;&#xD;&#xA;    /// The &lt;see cref=&quot;StreamingContext&quot;/&gt; that contains contextual information about the source or destination.&#xD;&#xA;    /// &lt;/param&gt;&#xD;&#xA;    /// &lt;exception cref=&quot;ArgumentNullException&quot;&gt;&#xD;&#xA;    /// The &lt;paramref name=&quot;info&quot;/&gt; parameter is a null reference (Nothing in Visual Basic).&#xD;&#xA;    /// &lt;/exception&gt;&#xD;&#xA;    /// &lt;filterpriority&gt;&#xD;&#xA;    /// 2&#xD;&#xA;    /// &lt;/filterpriority&gt;&#xD;&#xA;    /// &lt;PermissionSet&gt;&#xD;&#xA;    ///   &lt;IPermission class=&quot;System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; version=&quot;1&quot; Read=&quot;*AllFiles*&quot; PathDiscovery=&quot;*AllFiles*&quot;/&gt;&lt;IPermission class=&quot;System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.3600.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot; version=&quot;1&quot; Flags=&quot;SerializationFormatter&quot;/&gt;&#xD;&#xA;    /// &lt;/PermissionSet&gt;&#xD;&#xA;    public override void GetObjectData(SerializationInfo info, StreamingContext context)&#xD;&#xA;    {&#xD;&#xA;        base.GetObjectData(info, context);&#xD;&#xA;&#xD;&#xA;        // Do nothing here&#xD;&#xA;    }&#xD;&#xA;}&#xD;&#xA;" reformat="True" shortenQualifiedReferences="True">
-        <Context>
-          <CSharpContext context="Everywhere" minimumLanguageVersion="2.0" />
-        </Context>
-        <Categories />
-        <Variables>
-          <Variable name="documentation" expression="" initialRange="0" />
-          <Variable name="name" expression="getFileNameWithoutExtension()" initialRange="0" />
         </Variables>
         <CustomProperties />
       </Template>

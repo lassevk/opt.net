@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Opt
@@ -56,9 +57,9 @@ namespace Opt
                 from assembly in AppDomain.CurrentDomain.GetAssemblies()
                 from type in assembly.GetTypes()
                 where type.IsClass
-                   && !type.IsAbstract
-                   && requiredInterface.IsAssignableFrom(type)
-                   && type.IsDefined(typeof(CommandAttribute), true)
+                      && !type.IsAbstract
+                      && requiredInterface.IsAssignableFrom(type)
+                      && type.IsDefined(typeof(CommandAttribute), true)
                 select type;
         }
 
@@ -81,7 +82,7 @@ namespace Opt
                 throw new ArgumentNullException("name");
 
             return
-                (from type in CommandAttribute.LocateAllCommands()
+                (from type in LocateAllCommands()
                  from CommandAttribute attr in type.GetCustomAttributes(typeof(CommandAttribute), true)
                  where attr.Name == name
                  select type).FirstOrDefault();
