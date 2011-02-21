@@ -64,6 +64,7 @@
     <Compile Include="BaseOptionAttribute.cs" />
     <Compile Include="CommandAttribute.cs" />
     <Compile Include="ConsoleLineWriter.cs" />
+    <Compile Include="StringOptionAttribute.cs" />
     <Compile Include="FloatingPointProperty.cs" />
     <Compile Include="HelpCommand.cs" />
     <Compile Include="ICommand.cs" />

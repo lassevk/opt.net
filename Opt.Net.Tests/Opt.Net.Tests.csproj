@@ -82,7 +82,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">
       <Project>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</Project>
-      <Name>Opt.Net</Name>
+      <Name>Opt.Net %28Opt.Net\Opt.Net%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
