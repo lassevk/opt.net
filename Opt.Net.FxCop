@@ -100,5 +100,160 @@
   <Groups />
   <Settings />
  </Rules>
- <FxCopReport Version="10.0" />
+ <FxCopReport Version="10.0">
+  <Targets>
+   <Target Name="$(ProjectDir)/Opt.Net/bin/Debug/Opt.Net.dll">
+    <Modules>
+     <Module Name="opt.net.dll">
+      <Namespaces>
+       <Namespace Name="Opt">
+        <Types>
+         <Type Name="CommandAttribute">
+          <Messages>
+           <Message TypeName="DefineAccessorsForAttributeArguments" Category="Microsoft.Design" CheckId="CA1019" Created="2011-02-21 19:57:38Z" FixCategory="Breaking">
+            <Issue Name="RemoveSetter">
+             <Item>'CommandAttribute.Name'</Item>
+             <Item>'name'</Item>
+            </Issue>
+           </Message>
+          </Messages>
+         </Type>
+         <Type Name="HelpCommand">
+          <Members>
+           <Member Name="#ShowGeneralHelp()">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2011-02-21 19:57:38Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'HelpCommand.ShowGeneralHelp()'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ShowSpecificHelp(System.String)">
+            <Messages>
+             <Message TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822" Created="2011-02-21 19:57:38Z" FixCategory="NonBreaking">
+              <Issue>
+               <Item>'HelpCommand.ShowSpecificHelp(string)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="OptParser">
+          <Members>
+           <Member Name="#ExecuteCommand(System.Type,System.Collections.Generic.IEnumerable`1&lt;System.String&gt;)">
+            <Messages>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'OptParser.ExecuteCommand(Type, IEnumerable&lt;string&gt;)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+             <Message TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820" Created="2011-02-21 19:57:38Z">
+              <Issue Name="IsNullOrEmpty">
+               <Item>'string.operator ==(string, string)'</Item>
+               <Item>'OptParser.ExecuteCommand(Type, IEnumerable&lt;string&gt;)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#ExecuteCommand`1(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;)">
+            <Messages>
+             <Message TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'OptParser.ExecuteCommand&lt;TCommon&gt;(IEnumerable&lt;string&gt;)'</Item>
+               <Item>'TCommon'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#GetHelp`1()">
+            <Messages>
+             <Message TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'OptParser.GetHelp&lt;T&gt;()'</Item>
+               <Item>'T'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+         <Type Name="PropertyMap">
+          <Members>
+           <Member Name="#ExtractCommand(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;,System.Int32&amp;)">
+            <Messages>
+             <Message Id="1#" TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'indexOfCommand'</Item>
+              </Issue>
+             </Message>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'PropertyMap.ExtractCommand(IEnumerable&lt;string&gt;, out int)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#Map(System.Collections.Generic.IEnumerable`1&lt;System.String&gt;,System.Object)">
+            <Messages>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'PropertyMap.Map(IEnumerable&lt;string&gt;, object)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+           <Member Name="#SplitOptionAndArgument(System.String,System.String&amp;,System.String&amp;)">
+            <Messages>
+             <Message Id="System.String.StartsWith(System.String)" TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307" Created="2011-02-21 19:57:38Z">
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'PropertyMap.SplitOptionAndArgument(string, out string, out string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+              <Issue>
+               <Item>'string.StartsWith(string)'</Item>
+               <Item>'PropertyMap.SplitOptionAndArgument(string, out string, out string)'</Item>
+               <Item>'string.StartsWith(string, StringComparison)'</Item>
+              </Issue>
+             </Message>
+            </Messages>
+           </Member>
+          </Members>
+         </Type>
+        </Types>
+       </Namespace>
+      </Namespaces>
+     </Module>
+    </Modules>
+   </Target>
+  </Targets>
+  <Rules>
+   <Rule TypeName="AvoidOutParameters" Category="Microsoft.Design" CheckId="CA1021">
+    <Resolution Name="Default">Consider a design that does not require that {0} be an out parameter.</Resolution>
+   </Rule>
+   <Rule TypeName="DefineAccessorsForAttributeArguments" Category="Microsoft.Design" CheckId="CA1019">
+    <Resolution Name="RemoveSetter">Remove the property setter from {0} or reduce its accessibility because it corresponds to positional argument {1}.</Resolution>
+   </Rule>
+   <Rule TypeName="GenericMethodsShouldProvideTypeParameter" Category="Microsoft.Design" CheckId="CA1004">
+    <Resolution Name="Default">Consider a design where {0} doesn't require explicit type parameter {1} in any call to it.</Resolution>
+   </Rule>
+   <Rule TypeName="MarkMembersAsStatic" Category="Microsoft.Performance" CheckId="CA1822">
+    <Resolution Name="Default">The 'this' parameter (or 'Me' in Visual Basic) of {0} is never used. Mark the member as static (or Shared in Visual Basic) or use 'this'/'Me' in the method body or at least one property accessor, if appropriate.</Resolution>
+   </Rule>
+   <Rule TypeName="SpecifyStringComparison" Category="Microsoft.Globalization" CheckId="CA1307">
+    <Resolution Name="Default">Because the behavior of {0} could vary based on the current user's locale settings, replace this call in {1} with a call to {2}. If the result of {2} will be displayed to the user, such as when sorting a list of items for display in a list box, specify 'StringComparison.CurrentCulture' or 'StringComparison.CurrentCultureIgnoreCase' as the 'StringComparison' parameter. If comparing case-insensitive identifiers, such as file paths, environment variables, or registry keys and values, specify 'StringComparison.OrdinalIgnoreCase'. Otherwise, if comparing case-sensitive identifiers, specify 'StringComparison.Ordinal'.</Resolution>
+   </Rule>
+   <Rule TypeName="TestForEmptyStringsUsingStringLength" Category="Microsoft.Performance" CheckId="CA1820">
+    <Resolution Name="IsNullOrEmpty">Replace the call to {0} in {1} with a call to 'String.IsNullOrEmpty'.</Resolution>
+   </Rule>
+  </Rules>
+ </FxCopReport>
 </FxCopProject>

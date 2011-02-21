@@ -1,4 +1,9 @@
-﻿namespace Opt
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
+namespace Opt
 {
     /// <summary>
     /// This interface must be implemented by classes that will function as commands in the
