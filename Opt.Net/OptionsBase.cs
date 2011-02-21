@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Opt
 {
@@ -13,7 +17,11 @@ namespace Opt
         [BooleanOption("--verbose")]
         [BooleanOption("-v")]
         [Description("Verbose output")]
-        public bool Verbose { get; set; }
+        public bool Verbose
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets or sets a value indicating whether to show the help text.
@@ -21,6 +29,10 @@ namespace Opt
         [BooleanOption("--help")]
         [BooleanOption("-h")]
         [Description("Show the command line help")]
-        public bool ShowHelp { get; set; }
+        public bool ShowHelp
+        {
+            get;
+            set;
+        }
     }
 }

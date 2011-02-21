@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 
 namespace Opt
@@ -17,11 +19,6 @@ namespace Opt
         /// This is the backing field for the <see cref="Name"/> property.
         /// </summary>
         private string _Name = string.Empty;
-
-        /// <summary>
-        /// This is the backing field for the <see cref="OrderIndex"/> property.
-        /// </summary>
-        private int _OrderIndex;
 
         /// <summary>
         /// Gets or sets the short name for the argument, used for help texts.
@@ -55,15 +52,9 @@ namespace Opt
         /// </summary>
         public int OrderIndex
         {
-            get
-            {
-                return _OrderIndex;
-            }
+            get;
 
-            set
-            {
-                _OrderIndex = value;
-            }
+            set;
         }
 
         /// <summary>
@@ -113,13 +104,9 @@ namespace Opt
                 throw new ArgumentNullException("propertyInfo");
 
             if (!propertyInfo.IsDefined(typeof(ArgumentAttribute), true))
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                                                                  "The ArgumentAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}",
-                                                                  propertyInfo));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentAttribute attribute is validated against a property that does not have the attribute, this is an internal error (aka bug), the property validated against was {0}", propertyInfo));
             if (propertyInfo.PropertyType != typeof(string))
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                                                                  "The ArgumentAttribute attribute is applied to a property that is not of type String, but of {0}",
-                                                                  propertyInfo.PropertyType));
+                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentAttribute attribute is applied to a property that is not of type String, but of {0}", propertyInfo.PropertyType));
         }
     }
 }

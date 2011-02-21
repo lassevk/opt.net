@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
@@ -7,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Opt.Net")]
-[assembly: AssemblyCopyright("Copyright (C) Lasse V. Karlsen 2010, All rights reserved")]
+[assembly: AssemblyCopyright("Copyright (C) Lasse V. Karlsen 2010-2011, All rights reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]

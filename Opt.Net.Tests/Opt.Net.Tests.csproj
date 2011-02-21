@@ -45,7 +45,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Opt.Net.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\Lasse V. Karlsen.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
@@ -80,19 +80,19 @@
     <Compile Include="TypeCreator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Opt.Net.snk">
-      <Link>Opt.Net.snk</Link>
+    <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">
+      <Project>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</Project>
+      <Name>Opt.Net</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Lasse V. Karlsen.snk">
+      <Link>Lasse V. Karlsen.snk</Link>
     </None>
     <None Include="packages.config" />
     <None Include="Settings.StyleCop">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">
-      <Project>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</Project>
-      <Name>Opt.Net</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

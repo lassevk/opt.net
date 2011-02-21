@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -19,7 +20,9 @@ namespace Opt
         /// </summary>
         private static readonly Type[] _SupportedTypes = new[]
         {
-            typeof(float), typeof(float?), typeof(double), typeof(double?), typeof(decimal), typeof(decimal?),
+            typeof(float), typeof(float?),
+            typeof(double), typeof(double?),
+            typeof(decimal), typeof(decimal?),
         };
 
         /// <summary>
