@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using NUnit.Framework;
 
 namespace Opt.Tests
@@ -9,9 +12,9 @@ namespace Opt.Tests
     {
         public class OptionsWithArguments
         {
+            private readonly Collection<string> _Args = new Collection<string>(new List<string>());
             private string _Arg1 = string.Empty;
             private string _Arg2 = string.Empty;
-            private Collection<string> _Args = new Collection<string>(new List<string>());
 
             [System.ComponentModel.Description("The input filename, the Tera-WURFL xml file")]
             [Argument(OrderIndex = 1, Name = "INPUT")]

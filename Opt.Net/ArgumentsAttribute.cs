@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -67,9 +69,10 @@ namespace Opt
             if (containerType == null)
                 throw new ArgumentNullException("containerType");
 
-            int propertiesWithThisAttribute = (from property in containerType.GetProperties()
-                                               where property.IsDefined(typeof(ArgumentsAttribute), true)
-                                               select property).Count();
+            int propertiesWithThisAttribute =
+                (from property in containerType.GetProperties()
+                 where property.IsDefined(typeof(ArgumentsAttribute), true)
+                 select property).Count();
 
             if (propertiesWithThisAttribute == 0)
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, "The ArgumentsAttribute attribute is validated against a different container type than originally passed in; this is an internal error (aka bug), type validated against was {0}", containerType));

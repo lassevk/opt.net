@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Opt
 {
@@ -133,14 +133,14 @@ namespace Opt
                 throw new ArgumentNullException("containerType");
 
             var map = new PropertyMap(containerType);
-            
+
             // Command line help
             var parts = new List<string>();
             int argumentIndex = 1;
-            foreach (var prop in map.ArgumentProperties)
+            foreach (PropertyInfo prop in map.ArgumentProperties)
             {
                 var attr = (ArgumentAttribute)prop.GetCustomAttributes(typeof(ArgumentAttribute), true)[0];
-                var name = attr.Name;
+                string name = attr.Name;
                 if (StringEx.IsNullOrWhiteSpace(name))
                     name = "ARG" + argumentIndex;
                 if (attr.Optional)
@@ -203,29 +203,29 @@ namespace Opt
                 yield return string.Empty;
             }
 
-            var propertiesWithHelpText = (from propMap in map.MappedProperties
-                                          let text = GetHelpTextFor(propMap.Key).ToArray()
-                                          where text.Length > 0
-                                          select new
-                                          {
-                                              prop = propMap.Key, option = propMap.Value.Option, parameter = propMap.Value.ParameterName, text
-                                          }
-
-                                          into entry
-                                          group entry by entry.prop into g
-                                          select new
-                                          {
-                                              options = g.Select(e => e.option).OrderBy(o => o.Length).ToArray(), g.First().text, g.First().parameter
-                                          }
-
-                                          into entry2
-                                          orderby (entry2.options.First() == "-h" || entry2.options.First() == "--help") ? 0 : 1, entry2.options.First()
-                                          let shortOption = entry2.options.Where(o => o.Length == 2).FirstOrDefault() ?? string.Empty
-                                          let longOption = entry2.options.Where(o => o.Length > 2).FirstOrDefault() ?? string.Empty
-                                          select new
-                                          {
-                                              shortOption, longOption, entry2.options, entry2.parameter, entry2.text
-                                          }).ToArray();
+            var propertiesWithHelpText =
+                (from propMap in map.MappedProperties
+                 let text = GetHelpTextFor(propMap.Key).ToArray()
+                 where text.Length > 0
+                 select new
+                 {
+                     prop = propMap.Key, option = propMap.Value.Option, parameter = propMap.Value.ParameterName, text
+                 }
+                 into entry
+                 group entry by entry.prop
+                 into g
+                 select new
+                 {
+                     options = g.Select(e => e.option).OrderBy(o => o.Length).ToArray(), g.First().text, g.First().parameter
+                 }
+                 into entry2
+                 orderby (entry2.options.First() == "-h" || entry2.options.First() == "--help") ? 0 : 1 , entry2.options.First()
+                 let shortOption = entry2.options.Where(o => o.Length == 2).FirstOrDefault() ?? string.Empty
+                 let longOption = entry2.options.Where(o => o.Length > 2).FirstOrDefault() ?? string.Empty
+                 select new
+                 {
+                     shortOption, longOption, entry2.options, entry2.parameter, entry2.text
+                 }).ToArray();
 
             if (propertiesWithHelpText.Length > 0)
             {
@@ -277,9 +277,9 @@ namespace Opt
                 yield break;
 
             string text = attrs[0].Description;
-           
+
             // TODO: Handle resource-based text
-            foreach (var line in StringEx.SplitLines(text))
+            foreach (string line in StringEx.SplitLines(text))
                 yield return line;
         }
 
@@ -336,18 +336,18 @@ namespace Opt
                     throw new InvalidOperationException("No command specified"); // TODO: Replace with better exception
             }
 
-            var commandType = CommandAttribute.LocateCommand(command);
+            Type commandType = CommandAttribute.LocateCommand(command);
             if (commandType == null)
                 throw new InvalidOperationException("No command with the name '" + command + "'"); // TODO: Replace with better exception
 
-            var commandInstance = Activator.CreateInstance(commandType);
+            object commandInstance = Activator.CreateInstance(commandType);
             IEnumerable<string> argumentsExceptCommand;
             if (index > 0)
                 argumentsExceptCommand = arguments.Take(index).Concat(arguments.Skip(index + 1)).ToArray();
             else
                 argumentsExceptCommand = arguments.Skip(1).ToArray();
 
-            var leftOvers = Parse(commandInstance, argumentsExceptCommand);
+            string[] leftOvers = Parse(commandInstance, argumentsExceptCommand);
 
             ((ICommand)commandInstance).Execute(leftOvers);
         }

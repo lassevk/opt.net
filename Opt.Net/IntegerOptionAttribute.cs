@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -19,7 +20,14 @@ namespace Opt
         /// </summary>
         private static readonly Type[] _SupportedTypes = new[]
         {
-            typeof(byte), typeof(byte?), typeof(sbyte), typeof(sbyte?), typeof(short), typeof(short?), typeof(ushort), typeof(ushort?), typeof(int), typeof(int?), typeof(uint), typeof(uint?), typeof(long), typeof(long?), typeof(ulong), typeof(ulong?),
+            typeof(byte), typeof(byte?),
+            typeof(sbyte), typeof(sbyte?),
+            typeof(short), typeof(short?),
+            typeof(ushort), typeof(ushort?),
+            typeof(int), typeof(int?),
+            typeof(uint), typeof(uint?),
+            typeof(long), typeof(long?),
+            typeof(ulong), typeof(ulong?),
         };
 
         /// <summary>
