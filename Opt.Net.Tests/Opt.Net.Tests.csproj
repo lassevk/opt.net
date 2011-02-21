@@ -80,12 +80,6 @@
     <Compile Include="TypeCreator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">
-      <Project>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</Project>
-      <Name>Opt.Net %28Opt.Net\Opt.Net%29</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\Opt.Net.snk">
       <Link>Opt.Net.snk</Link>
     </None>
@@ -93,6 +87,12 @@
     <None Include="Settings.StyleCop">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Opt.Net\Opt.Net.csproj">
+      <Project>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</Project>
+      <Name>Opt.Net</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
