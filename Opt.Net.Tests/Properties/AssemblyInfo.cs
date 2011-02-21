@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Opt.Net")]
-[assembly: AssemblyCopyright("Copyright (C) Lasse V. Karlsen 2010, All rights reserved")]
+[assembly: AssemblyCopyright("Copyright (C) Lasse V. Karlsen 2010-2011, All rights reserved")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
