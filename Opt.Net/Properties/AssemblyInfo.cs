@@ -17,8 +17,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: Guid("881bf89f-ebee-4670-88da-05e9b595d414")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguage("en")]
 #if USE_RELEASE_KEY
