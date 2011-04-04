@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>optnet</id>
+    <version>%ASSEMBLY_VERSION_NUMBER%</version>
+    <title>Opt.Net</title>
+    <authors>Lasse V. Karlsen</authors>
+    <owners>Lasse V. Karlsen</owners>
+    <licenseUrl>http://optnet.codeplex.com/license</licenseUrl>
+    <projectUrl>http://optnet.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <language>en-US</language>
+    <description>Command line argument parser for .NET.</description>
+    <summary>A class library that makes it easy to build programs that accept command line options and arguments, both command-driven applications and single-use applications.</summary>
+    <tags>command-line arguments parsing</tags>
+    </metadata>
+</package>
