@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Opt.Net</id>
+    <title>Opt.Net</title>
+    <authors>Lasse V. Karlsen</authors>
+    <owners>Lasse V. Karlsen</owners>
+    <licenseUrl>http://optnet.codeplex.com/license</licenseUrl>
+    <projectUrl>http://optnet.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <language>en-US</language>
+    <description>Program arguments and options parsing library.</description>
+    <summary>A class library that makes it easy to add arguments and options parsing capabilities to any program, both for single-action programs (like xcopy: xcopy SOURCE DEST) and command-based programs (like version control systems: hg add -options).</summary>
+    <tags>.net arguments options parsing</tags>
+    </metadata>
+</package>
