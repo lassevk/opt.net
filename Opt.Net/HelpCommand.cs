@@ -16,19 +16,14 @@ namespace Opt
     {
         #region ICommand Members
 
-        /// <summary>
-        /// Execute the command.
-        /// </summary>
-        /// <param name="arguments">
-        /// Any leftover arguments that wasn't parsed into any properties on the command.
-        /// </param>
-        public void Execute(string[] arguments)
+        /// <inheritdoc />
+        public void Execute(string[] arguments, Action<string> standardOutputAction, Action<string> errorOutputAction)
         {
             string topic = arguments.FirstOrDefault();
             if (topic == null)
-                ShowGeneralHelp();
+                ShowGeneralHelp(standardOutputAction, errorOutputAction);
             else
-                ShowSpecificHelp(topic);
+                ShowSpecificHelp(topic, standardOutputAction, errorOutputAction);
         }
 
         #endregion
@@ -42,7 +37,7 @@ namespace Opt
         /// <exception cref="ArgumentNullException">
         /// <para><paramref name="topic"/> is <c>null</c> or empty.</para>
         /// </exception>
-        private void ShowSpecificHelp(string topic)
+        private void ShowSpecificHelp(string topic, Action<string> standardOutputAction, Action<string> errorOutputAction)
         {
             Type commandType = CommandAttribute.LocateCommand(topic);
             if (commandType == null)
@@ -52,28 +47,30 @@ namespace Opt
             }
 
             foreach (string line in OptParser.GetHelp(commandType))
-                Console.Out.WriteLine(line);
+                standardOutputAction?.Invoke(line);
         }
 
         /// <summary>
         /// Show general help.
         /// </summary>
-        private void ShowGeneralHelp()
+        private void ShowGeneralHelp(Action<string> standardOutputAction, Action<string> errorOutputAction)
         {
             var attr = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false).FirstOrDefault() as AssemblyDescriptionAttribute;
             if (attr != null)
             {
-                Console.Out.WriteLine(attr.Description);
-                Console.Out.WriteLine();
+                standardOutputAction?.Invoke(attr.Description);
+                standardOutputAction?.Invoke(string.Empty);
             }
 
-            Console.Out.WriteLine("list of commands:");
-            Console.Out.WriteLine();
+            standardOutputAction?.Invoke("list of commands:");
+            standardOutputAction?.Invoke(string.Empty);
 
             var commands =
                 (from commandType in CommandAttribute.LocateAllCommands()
-                 from CommandAttribute commandAttribute in commandType.GetCustomAttributes(typeof(CommandAttribute), true)
-                 let descriptionAttribute = commandType.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute
+                 let commandTypeInfo = commandType.GetTypeInfo()
+                 where commandTypeInfo != null
+                 from CommandAttribute commandAttribute in commandTypeInfo.GetCustomAttributes(typeof(CommandAttribute), true)
+                 let descriptionAttribute = commandTypeInfo.GetCustomAttributes(typeof(DescriptionAttribute), true).FirstOrDefault() as DescriptionAttribute
                  select new
                  {
                      name = commandAttribute.Name,
@@ -86,7 +83,7 @@ namespace Opt
             int maxCommandLength = commands.Max(e => e.name.Length);
 
             foreach (var command in commands)
-                Console.Out.WriteLine(" " + (command.name.PadRight(maxCommandLength, ' ') + "  " + command.description).Trim());
+                standardOutputAction?.Invoke(" " + (command.name.PadRight(maxCommandLength, ' ') + "  " + command.description).Trim());
         }
     }
 }

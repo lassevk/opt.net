@@ -1,4 +1,4 @@
-    Copyright (c) 2010-2011, Lasse V. Karlsen
+    Copyright (c) 2010-2017, Lasse V. Karlsen
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without modification,
@@ -27,6 +27,5 @@
     SUCH DAMAGE.
 
 <small>[New BSD License (BSD)][1]</small>
-
 
   [1]: http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22_or_.22Modified_BSD_License.22.29

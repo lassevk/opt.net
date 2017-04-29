@@ -4,11 +4,11 @@ the program using the library defines, using attributes.
 
 Details:
 
-* Language: C# 3.0
-* Runtime: .NET 3.5 Client Profile
+* Language: C# 7.0
+* Runtime: Any runtime supporting .NET Standard 1.0
 
-Repository and project location: [CodePlex][1]  
+Repository and project location: [GitHub][1]  
 Maintainer: [Lasse V. Karlsen][2]
 
-  [1]: http://optnet.codeplex.com
+  [1]: https://github.com/lassevk/opt.net
   [2]: mailto:lasse@vkarlsen.no

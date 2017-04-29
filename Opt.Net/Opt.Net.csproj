@@ -1,98 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{516EBD9C-EF93-47A6-BAE0-F999F1EC5B76}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Description>Command Line Parameter Parsing and Handling</Description>
+    <Copyright>Copyright (C) Lasse V. Karlsen 2010-2017, All rights reserved</Copyright>
+    <Company>lassevk</Company>
     <RootNamespace>Opt</RootNamespace>
-    <AssemblyName>Opt.Net</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\Opt.Net.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\Opt.Net.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseBinaries|AnyCPU'">
-    <OutputPath>bin\ReleaseBinaries\</OutputPath>
-    <DefineConstants>TRACE;USE_RELEASE_KEY</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\ReleaseBinaries\Opt.Net.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>..\Lasse V. Karlsen.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ArgumentAttribute.cs" />
-    <Compile Include="ArgumentsAttribute.cs" />
-    <Compile Include="ArgumentsCollection.cs" />
-    <Compile Include="BasePropertyAttribute.cs" />
-    <Compile Include="BooleanOptionAttribute.cs" />
-    <Compile Include="BaseOptionAttribute.cs" />
-    <Compile Include="CommandAttribute.cs" />
-    <Compile Include="ConsoleLineWriter.cs" />
-    <Compile Include="StringOptionAttribute.cs" />
-    <Compile Include="FloatingPointProperty.cs" />
-    <Compile Include="HelpCommand.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="ILineWriter.cs" />
-    <Compile Include="IntegerOptionAttribute.cs" />
-    <Compile Include="OptionException.cs" />
-    <Compile Include="OptionsBase.cs" />
-    <Compile Include="OptionSyntaxException.cs" />
-    <Compile Include="OptParser.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyMap.cs" />
-    <Compile Include="StringEx.cs" />
-    <Compile Include="UnknownOptionException.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Lasse V. Karlsen.snk">
-      <Link>Lasse V. Karlsen.snk</Link>
-    </None>
-    <None Include="Settings.StyleCop">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
